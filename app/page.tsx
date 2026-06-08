@@ -184,7 +184,7 @@ export default function Home() {
               Stock Cash Basic
             </h3>
             <p className="font-body-md text-body-md text-slate-text mb-8 flex-grow">
-              Entry-level research insights for short-term and medium-term equity cash market opportunities.
+              Entry-level research insights for short-term and medium-term equity cash market opportunities
             </p>
             <Link
               href="/services"
