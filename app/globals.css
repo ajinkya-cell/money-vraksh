@@ -8,7 +8,7 @@
   --color-primary-container: #10b981;
   --color-success-emerald: #10B981;
   --color-premium-gold: #D4AF37;
-  --border-elegant: rgba(255, 255, 255, 0.04);
+  --border-elegant: rgba(255, 255, 255, 0.015);
   --surface-glass: rgba(255, 255, 255, 0.03);
   --slate-text: #94A3B8;
   --on-surface: #dbe3f3;
@@ -32,7 +32,7 @@
   --color-primary-container: #10b981;
   --color-success-emerald: #10B981;
   --color-premium-gold: #D4AF37;
-  --border-elegant: rgba(255, 255, 255, 0.04);
+  --border-elegant: rgba(255, 255, 255, 0.015);
   --surface-glass: rgba(255, 255, 255, 0.03);
   --slate-text: #94A3B8;
   --on-surface: #dbe3f3;
@@ -53,7 +53,7 @@
   --color-primary-container: #064e3b;
   --color-success-emerald: #10B981;
   --color-premium-gold: #F59E0B;
-  --border-elegant: rgba(255, 255, 255, 0.15);
+  --border-elegant: rgba(255, 255, 255, 0.08);
   --surface-glass: rgba(255, 255, 255, 0.05);
   --slate-text: #9CA3AF;
   --on-surface: #F9FAFB;
@@ -138,7 +138,7 @@ body {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-elegant);
-  box-shadow: inset 1px 1px 0px 0px rgba(255, 255, 255, 0.05);
+  box-shadow: inset 1px 1px 0px 0px rgba(255, 255, 255, 0.02);
   transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
