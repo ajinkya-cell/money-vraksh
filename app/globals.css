@@ -20,8 +20,10 @@
   --on-primary: #003824;
   --inverse-primary: #006c49;
   --error: #ffb4ab;
-  --font-family-headline: 'Montserrat', sans-serif;
-  --font-family-body: 'Inter', sans-serif;
+  --font-display: var(--font-old-standard);
+  --font-headline: var(--font-old-standard);
+  --font-body: var(--font-outfit);
+  --font-mono: var(--font-space-grotesk);
 }
 
 /* Explicit Themes */
@@ -108,15 +110,15 @@
   --color-inverse-primary: var(--inverse-primary);
   --color-error: var(--error);
 
-  --font-sans: var(--font-family-body);
-  --font-headline: var(--font-family-headline);
-  --font-display-lg: var(--font-family-headline);
-  --font-headline-lg: var(--font-family-headline);
-  --font-headline-md: var(--font-family-headline);
-  --font-body-lg: var(--font-family-body);
-  --font-body-md: var(--font-family-body);
-  --font-label-md: var(--font-family-body);
-  --font-data-mono: var(--font-family-body);
+  --font-sans: var(--font-body);
+  --font-headline: var(--font-display);
+  --font-display-lg: var(--font-display);
+  --font-headline-lg: var(--font-display);
+  --font-headline-md: var(--font-body);
+  --font-body-lg: var(--font-body);
+  --font-body-md: var(--font-body);
+  --font-label-md: var(--font-body);
+  --font-data-mono: var(--font-mono);
 
   --spacing-container-max: 1280px;
   --spacing-base: 8px;
@@ -125,11 +127,22 @@
   --spacing-gutter: 24px;
 }
 
+html { scroll-behavior: smooth; }
+
 body {
   background-color: var(--bg-midnight);
   color: var(--on-surface);
+  font-family: var(--font-outfit);
   transition: background-color 0.3s ease, color 0.3s ease;
   -webkit-font-smoothing: antialiased;
+}
+
+.focus-ring {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background-midnight transition-all duration-150;
+}
+
+.theme-light .focus-ring {
+  @apply focus-visible:ring-offset-white;
 }
 
 /* Glassmorphism Styles */

@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { showToast } from "../components/Toast";
 
 interface FAQItem {
   question: string;
@@ -17,7 +20,8 @@ export default function Contact() {
     message: "",
   });
 
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
   const toggleFaq = (index: number) => {
@@ -36,9 +40,23 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setIsSuccess(false);
+
     // Simulate API request
-    setFormSubmitted(true);
     setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSuccess(true);
+      
+      // Trigger Toast notification
+      showToast("success", "Your message has been sent successfully!");
+
+      // Reset success state after 1.5s
+      setTimeout(() => {
+        setIsSuccess(false);
+      }, 1500);
+
+      // Reset form
       setFormData({
         fullName: "",
         email: "",
@@ -46,8 +64,7 @@ export default function Contact() {
         service: "Select a service...",
         message: "",
       });
-      setFormSubmitted(false);
-    }, 5000);
+    }, 1500);
   };
 
   const faqs: FAQItem[] = [
@@ -91,103 +108,115 @@ export default function Contact() {
               Send us a Message
             </h2>
 
-            {formSubmitted ? (
-              <div className="bg-primary/10 border border-primary/30 text-primary p-6 rounded-xl animate-fade-in flex flex-col items-center justify-center text-center min-h-[300px]">
-                <span className="material-symbols-outlined text-5xl mb-4">check_circle</span>
-                <h3 className="font-headline-md font-bold text-lg mb-2 font-headline">Request Submitted!</h3>
-                <p className="text-sm text-slate-text max-w-md">
-                  Thank you for reaching out, we will get back to you shortly at the provided email/phone number.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div className="flex flex-col">
-                    <label className="font-label-md text-[10px] text-slate-text mb-2 uppercase tracking-widest font-semibold">
-                      Full Name
-                    </label>
-                    <input
-                      name="fullName"
-                      value={formData.fullName}
-                      onChange={handleInputChange}
-                      required
-                      type="text"
-                      className="bg-surface-container-high border-0 border-b border-outline-variant text-on-surface p-3 rounded-t-lg transition-all focus:border-b-primary focus:outline-none focus:bg-surface-container-highest"
-                      placeholder="John Doe"
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <label className="font-label-md text-[10px] text-slate-text mb-2 uppercase tracking-widest font-semibold">
-                      Email Address
-                    </label>
-                    <input
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                      type="email"
-                      className="bg-surface-container-high border-0 border-b border-outline-variant text-on-surface p-3 rounded-t-lg transition-all focus:border-b-primary focus:outline-none focus:bg-surface-container-highest"
-                      placeholder="john@example.com"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div className="flex flex-col">
-                    <label className="font-label-md text-[10px] text-slate-text mb-2 uppercase tracking-widest font-semibold">
-                      Phone Number
-                    </label>
-                    <input
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      required
-                      type="tel"
-                      className="bg-surface-container-high border-0 border-b border-outline-variant text-on-surface p-3 rounded-t-lg transition-all focus:border-b-primary focus:outline-none focus:bg-surface-container-highest"
-                      placeholder="+91 98765 43210"
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <label className="font-label-md text-[10px] text-slate-text mb-2 uppercase tracking-widest font-semibold">
-                      Service Interest
-                    </label>
-                    <select
-                      name="service"
-                      value={formData.service}
-                      onChange={handleInputChange}
-                      className="bg-surface-container-high border-0 border-b border-outline-variant text-on-surface p-3 rounded-t-lg transition-all focus:border-b-primary focus:outline-none focus:bg-surface-container-highest appearance-none cursor-pointer"
-                    >
-                      <option>Select a service...</option>
-                      <option>Portfolio Management</option>
-                      <option>Equity Research</option>
-                      <option>Algo Trading</option>
-                    </select>
-                  </div>
-                </div>
-
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="flex flex-col">
                   <label className="font-label-md text-[10px] text-slate-text mb-2 uppercase tracking-widest font-semibold">
-                    Message
+                    Full Name
                   </label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
+                  <input
+                    name="fullName"
+                    value={formData.fullName}
                     onChange={handleInputChange}
                     required
-                    className="bg-surface-container-high border-0 border-b border-outline-variant text-on-surface p-3 rounded-t-lg transition-all focus:border-b-primary focus:outline-none focus:bg-surface-container-highest resize-none"
-                    placeholder="How can we help you today?"
-                    rows={4}
+                    type="text"
+                    className="bg-surface-container-high border-0 border-b border-outline-variant text-on-surface p-3 rounded-t-lg transition-all focus:border-b-primary focus:outline-none focus:bg-surface-container-highest focus-ring"
+                    placeholder="John Doe"
                   />
                 </div>
+                <div className="flex flex-col">
+                  <label className="font-label-md text-[10px] text-slate-text mb-2 uppercase tracking-widest font-semibold">
+                    Email Address
+                  </label>
+                  <input
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    type="email"
+                    className="bg-surface-container-high border-0 border-b border-outline-variant text-on-surface p-3 rounded-t-lg transition-all focus:border-b-primary focus:outline-none focus:bg-surface-container-highest focus-ring"
+                    placeholder="john@example.com"
+                  />
+                </div>
+              </div>
 
-                <button
-                  type="submit"
-                  className="w-full md:w-auto bg-gradient-to-r from-primary to-success-emerald text-background font-label-md text-sm px-8 py-3 rounded-lg mt-4 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all font-bold hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
-                >
-                  Submit Request
-                </button>
-              </form>
-            )}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="flex flex-col">
+                  <label className="font-label-md text-[10px] text-slate-text mb-2 uppercase tracking-widest font-semibold">
+                    Phone Number
+                  </label>
+                  <input
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    required
+                    type="tel"
+                    className="bg-surface-container-high border-0 border-b border-outline-variant text-on-surface p-3 rounded-t-lg transition-all focus:border-b-primary focus:outline-none focus:bg-surface-container-highest focus-ring"
+                    placeholder="+91 98765 43210"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label className="font-label-md text-[10px] text-slate-text mb-2 uppercase tracking-widest font-semibold">
+                    Service Interest
+                  </label>
+                  <select
+                    name="service"
+                    value={formData.service}
+                    onChange={handleInputChange}
+                    className="bg-surface-container-high border-0 border-b border-outline-variant text-on-surface p-3 rounded-t-lg transition-all focus:border-b-primary focus:outline-none focus:bg-surface-container-highest focus-ring appearance-none cursor-pointer"
+                  >
+                    <option>Select a service...</option>
+                    <option>Portfolio Management</option>
+                    <option>Equity Research</option>
+                    <option>Algo Trading</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="flex flex-col">
+                <label className="font-label-md text-[10px] text-slate-text mb-2 uppercase tracking-widest font-semibold">
+                  Message
+                </label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  required
+                  className="bg-surface-container-high border-0 border-b border-outline-variant text-on-surface p-3 rounded-t-lg transition-all focus:border-b-primary focus:outline-none focus:bg-surface-container-highest focus-ring resize-none"
+                  placeholder="How can we help you today?"
+                  rows={4}
+                />
+              </div>
+
+              <motion.button
+                type="submit"
+                disabled={isSubmitting}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                className={`w-full md:w-auto text-background font-label-md text-sm px-8 py-3 rounded-lg mt-4 transition-all font-bold focus-ring cursor-pointer flex items-center justify-center gap-2 ${
+                  isSuccess
+                    ? "bg-gradient-to-r from-emerald-500 to-teal-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.5)]"
+                    : "bg-gradient-to-r from-primary to-success-emerald hover:shadow-[0_0_20px_rgba(16,185,129,0.4)]"
+                } ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
+              >
+                {isSubmitting ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-background" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Submitting...
+                  </>
+                ) : isSuccess ? (
+                  <>
+                    <span className="material-symbols-outlined text-[18px]">check_circle</span>
+                    Submitted!
+                  </>
+                ) : (
+                  "Submit Request"
+                )}
+              </motion.button>
+            </form>
           </div>
 
           {/* Right Column: Info & Map (Spans 5) */}
@@ -273,7 +302,10 @@ export default function Contact() {
 
         {/* Quick Contact Cards (Bento row) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-16">
-          <div className="glass-panel p-6 rounded-2xl hover:bg-surface-container-high/20 transition-all duration-300 group cursor-pointer border border-elegant border-t-2 border-t-transparent hover:border-t-primary flex flex-col justify-between min-h-[160px]">
+          <Link
+            href="/contact"
+            className="glass-panel p-6 rounded-2xl hover:bg-surface-container-high/20 transition-all duration-300 group border border-elegant border-t-2 border-t-transparent hover:border-t-primary flex flex-col justify-between min-h-[160px] focus-ring"
+          >
             <span className="material-symbols-outlined text-3xl text-primary mb-4 block group-hover:scale-110 transition-transform">
               support_agent
             </span>
@@ -288,9 +320,12 @@ export default function Contact() {
             <div className="font-data-mono text-xs text-primary font-bold mt-4">
               Schedule Call →
             </div>
-          </div>
+          </Link>
 
-          <div className="glass-panel p-6 rounded-2xl hover:bg-surface-container-high/20 transition-all duration-300 group cursor-pointer border border-elegant border-t-2 border-t-transparent hover:border-t-premium-gold flex flex-col justify-between min-h-[160px]">
+          <Link
+            href="/contact"
+            className="glass-panel p-6 rounded-2xl hover:bg-surface-container-high/20 transition-all duration-300 group border border-elegant border-t-2 border-t-transparent hover:border-t-premium-gold flex flex-col justify-between min-h-[160px] focus-ring"
+          >
             <span className="material-symbols-outlined text-3xl text-premium-gold mb-4 block group-hover:scale-110 transition-transform" style={{ fontVariationSettings: "'FILL' 1" }}>
               gavel
             </span>
@@ -305,9 +340,12 @@ export default function Contact() {
             <div className="font-data-mono text-xs text-premium-gold font-bold mt-4">
               Email Desk →
             </div>
-          </div>
+          </Link>
 
-          <div className="glass-panel p-6 rounded-2xl hover:bg-surface-container-high/20 transition-all duration-300 group cursor-pointer border border-elegant border-t-2 border-t-transparent hover:border-t-primary flex flex-col justify-between min-h-[160px]">
+          <Link
+            href="/contact"
+            className="glass-panel p-6 rounded-2xl hover:bg-surface-container-high/20 transition-all duration-300 group border border-elegant border-t-2 border-t-transparent hover:border-t-primary flex flex-col justify-between min-h-[160px] focus-ring"
+          >
             <span className="material-symbols-outlined text-3xl text-primary mb-4 block group-hover:scale-110 transition-transform">
               help
             </span>
@@ -322,7 +360,7 @@ export default function Contact() {
             <div className="font-data-mono text-xs text-primary font-bold mt-4">
               Visit Help Center →
             </div>
-          </div>
+          </Link>
         </div>
 
         {/* FAQ Section */}
@@ -337,7 +375,7 @@ export default function Contact() {
                 <div key={idx} className="border-b border-elegant pb-4">
                   <button
                     onClick={() => toggleFaq(idx)}
-                    className="w-full flex justify-between items-center text-left py-2 font-headline-md text-base font-bold text-on-surface font-headline cursor-pointer hover:text-primary transition-colors"
+                    className="w-full flex justify-between items-center text-left py-2 font-headline-md text-base font-bold text-on-surface font-headline cursor-pointer hover:text-primary transition-colors focus-ring rounded"
                   >
                     {faq.question}
                     <span
@@ -348,15 +386,21 @@ export default function Contact() {
                       expand_more
                     </span>
                   </button>
-                  <div
-                    className={`transition-all duration-300 ease-in-out ${
-                      isOpen ? "max-h-40 opacity-100 mt-4" : "max-h-0 opacity-0 overflow-hidden pointer-events-none"
-                    } pl-4 border-l-2 border-primary/30`}
-                  >
-                    <p className="font-body-md text-body-md text-slate-text leading-relaxed">
-                      {faq.answer}
-                    </p>
-                  </div>
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="overflow-hidden pl-4 border-l-2 border-primary/30 mt-4"
+                      >
+                        <p className="font-body-md text-body-md text-slate-text leading-relaxed">
+                          {faq.answer}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               );
             })}

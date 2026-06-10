@@ -3,6 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { AboutSection } from "./components/AboutSection";
+import { motion } from "framer-motion";
+
+const MotionLink = motion.create(Link);
 
 export default function Home() {
   return (
@@ -13,7 +16,13 @@ export default function Home() {
       <div className="light-leak-primary bottom-[10%] left-[-100px] opacity-50" />
 
       {/* Hero Section */}
-      <section className="relative px-margin-mobile md:px-margin-desktop py-12 md:py-24 max-w-container-max mx-auto min-h-[750px] flex items-center">
+      <motion.section
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="relative px-margin-mobile md:px-margin-desktop py-12 md:py-24 max-w-container-max mx-auto min-h-[750px] flex items-center"
+      >
         {/* Background Image Panel */}
         <div
           className="absolute inset-0 z-[-1] opacity-20 bg-cover bg-center rounded-2xl overflow-hidden mx-margin-mobile md:mx-margin-desktop my-6 border border-elegant"
@@ -37,7 +46,7 @@ export default function Home() {
             
             <h1 className="font-display-lg text-4xl md:text-6xl font-bold text-on-surface mb-6 leading-tight font-headline">
               Your Financial Future <br className="hidden md:block" />
-              <span className="gradient-text-primary">Starts Now</span>
+              <span className="gradient-text-primary italic">Starts Now</span>
             </h1>
             
             <p className="font-body-lg text-body-lg text-slate-text mb-10 max-w-2xl">
@@ -45,53 +54,90 @@ export default function Home() {
             </p>
             
             <div className="flex flex-wrap items-center gap-4">
-              <Link
+              <MotionLink
                 href="/contact"
-                className="gradient-bg-primary text-background font-label-md text-label-md px-8 py-4 rounded-full hover:shadow-[0_0_20px_rgba(78,222,163,0.5)] transition-all-slow flex items-center gap-2 font-bold hover:scale-[1.02] active:scale-[0.98]"
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                className="gradient-bg-primary text-background font-label-md text-label-md px-8 py-4 rounded-full hover:shadow-[0_0_20px_rgba(78,222,163,0.5)] transition-all-slow flex items-center gap-2 font-bold focus-ring cursor-pointer"
               >
                 Talk To Our Experts
                 <span className="material-symbols-outlined text-[18px]">
                   arrow_forward
                 </span>
-              </Link>
-              <Link
+              </MotionLink>
+              <MotionLink
                 href="/services"
-                className="bg-transparent border border-premium-gold text-premium-gold font-label-md text-label-md px-8 py-4 rounded-full hover:bg-premium-gold/10 transition-all-slow flex items-center gap-2 font-bold hover:scale-[1.02] active:scale-[0.98]"
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                className="bg-transparent border border-premium-gold text-premium-gold font-label-md text-label-md px-8 py-4 rounded-full hover:bg-premium-gold/10 transition-all-slow flex items-center gap-2 font-bold focus-ring cursor-pointer"
               >
                 <span className="material-symbols-outlined text-[18px]">
                   play_circle
                 </span>
                 How We Work
-              </Link>
+              </MotionLink>
             </div>
 
             {/* Trust Indicators */}
-            <div className="mt-16 flex flex-wrap gap-8 md:gap-12 pt-8 border-t border-elegant">
-              <div className="flex flex-col gap-1">
+            <motion.div
+              variants={{
+                hidden: { opacity: 0 },
+                show: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.1,
+                    delayChildren: 0.2
+                  }
+                }
+              }}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="mt-16 flex flex-wrap gap-8 md:gap-12 pt-8 border-t border-elegant"
+            >
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 12 },
+                  show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" } }
+                }}
+                className="flex flex-col gap-1"
+              >
                 <span className="font-data-mono text-data-mono text-primary text-2xl font-bold">
                   10K+
                 </span>
                 <span className="font-label-md text-label-md text-slate-text">
                   Active Clients
                 </span>
-              </div>
-              <div className="flex flex-col gap-1">
+              </motion.div>
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 12 },
+                  show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" } }
+                }}
+                className="flex flex-col gap-1"
+              >
                 <span className="font-data-mono text-data-mono text-primary text-2xl font-bold">
                   98%
                 </span>
                 <span className="font-label-md text-label-md text-slate-text">
                   Accuracy Rate
                 </span>
-              </div>
-              <div className="flex flex-col gap-1">
+              </motion.div>
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 12 },
+                  show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" } }
+                }}
+                className="flex flex-col gap-1"
+              >
                 <span className="font-data-mono text-data-mono text-primary text-2xl font-bold">
                   24/7
                 </span>
                 <span className="font-label-md text-label-md text-slate-text">
                   Expert Support
                 </span>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
 
           {/* Hero Right Graphic Card */}
@@ -157,24 +203,57 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
-      <AboutSection />
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+      >
+        <AboutSection />
+      </motion.div>
 
       {/* Services Section */}
-      <section className="px-margin-mobile md:px-margin-desktop py-20 max-w-container-max mx-auto">
-        <div className="text-center mb-16 animate-fade-in">
+      <motion.section
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="px-margin-mobile md:px-margin-desktop py-20 max-w-container-max mx-auto"
+      >
+        <div className="text-center mb-16">
           <h2 className="font-headline-lg text-3xl md:text-4xl font-bold text-on-surface mb-4 font-headline">
-            Premium Research Services
+            <span className="italic">Premium</span> Research Services
           </h2>
           <p className="font-body-lg text-body-lg text-slate-text max-w-2xl mx-auto">
             Tailored strategies for every market condition, designed to maximize your portfolio's potential.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+        <motion.div
+          variants={{
+            hidden: { opacity: 0 },
+            show: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.1
+              }
+            }
+          }}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-gutter"
+        >
           {/* Card 1 */}
-          <div className="glass-panel glass-panel-hover rounded-2xl p-8 flex flex-col group border border-elegant hover:border-primary/40">
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 16 },
+              show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+            }}
+            className="glass-panel glass-panel-hover rounded-2xl p-8 flex flex-col group border border-elegant hover:border-primary/40"
+          >
             <div className="w-14 h-14 rounded-xl bg-surface-container-high border border-elegant flex items-center justify-center mb-6 group-hover:bg-primary/10 group-hover:border-primary/30 transition-colors">
               <span className="material-symbols-outlined text-primary text-3xl">
                 show_chart
@@ -188,17 +267,23 @@ export default function Home() {
             </p>
             <Link
               href="/services"
-              className="font-label-md text-label-md text-primary flex items-center gap-2 w-fit group-hover:text-primary-fixed transition-colors font-bold"
+              className="font-label-md text-label-md text-primary flex items-center gap-2 w-fit group-hover:text-primary-fixed transition-colors font-bold focus-ring rounded-sm"
             >
               Read More
               <span className="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">
                 arrow_right_alt
               </span>
             </Link>
-          </div>
+          </motion.div>
 
           {/* Card 2 */}
-          <div className="glass-panel glass-panel-hover rounded-2xl p-8 flex flex-col group relative overflow-hidden border border-elegant hover:border-primary/40">
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 16 },
+              show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+            }}
+            className="glass-panel glass-panel-hover rounded-2xl p-8 flex flex-col group relative overflow-hidden border border-elegant hover:border-primary/40"
+          >
             <div className="absolute top-0 right-0 bg-premium-gold text-background-midnight font-data-mono text-[10px] px-4 py-1.5 rounded-bl-xl font-bold tracking-wider uppercase">
               POPULAR
             </div>
@@ -215,17 +300,23 @@ export default function Home() {
             </p>
             <Link
               href="/services"
-              className="font-label-md text-label-md text-primary flex items-center gap-2 w-fit group-hover:text-primary-fixed transition-colors font-bold"
+              className="font-label-md text-label-md text-primary flex items-center gap-2 w-fit group-hover:text-primary-fixed transition-colors font-bold focus-ring rounded-sm"
             >
               Read More
               <span className="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">
                 arrow_right_alt
               </span>
             </Link>
-          </div>
+          </motion.div>
 
           {/* Card 3 */}
-          <div className="glass-panel glass-panel-hover rounded-2xl p-8 flex flex-col group border border-elegant hover:border-primary/40">
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 16 },
+              show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+            }}
+            className="glass-panel glass-panel-hover rounded-2xl p-8 flex flex-col group border border-elegant hover:border-primary/40"
+          >
             <div className="w-14 h-14 rounded-xl bg-surface-container-high border border-elegant flex items-center justify-center mb-6 group-hover:bg-primary/10 group-hover:border-primary/30 transition-colors">
               <span className="material-symbols-outlined text-primary text-3xl">
                 candlestick_chart
@@ -239,31 +330,57 @@ export default function Home() {
             </p>
             <Link
               href="/services"
-              className="font-label-md text-label-md text-primary flex items-center gap-2 w-fit group-hover:text-primary-fixed transition-colors font-bold"
+              className="font-label-md text-label-md text-primary flex items-center gap-2 w-fit group-hover:text-primary-fixed transition-colors font-bold focus-ring rounded-sm"
             >
               Read More
               <span className="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">
                 arrow_right_alt
               </span>
             </Link>
-          </div>
-        </div>
-      </section>
+          </motion.div>
+        </motion.div>
+      </motion.section>
 
       {/* Process Section */}
-      <section className="relative px-margin-mobile md:px-margin-desktop py-20 max-w-container-max mx-auto before:absolute before:top-0 before:left-1/4 before:right-1/4 before:h-[1px] before:bg-gradient-to-r before:from-transparent before:via-primary/20 before:to-transparent before:content-['']">
+      <motion.section
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="relative px-margin-mobile md:px-margin-desktop py-20 max-w-container-max mx-auto before:absolute before:top-0 before:left-1/4 before:right-1/4 before:h-[1px] before:bg-gradient-to-r before:from-transparent before:via-primary/20 before:to-transparent before:content-['']"
+      >
         <div className="text-center mb-16">
           <span className="font-label-md text-label-md text-primary tracking-widest uppercase mb-2 block font-semibold">
             Our Process
           </span>
           <h2 className="font-headline-lg text-3xl md:text-4xl font-bold text-on-surface font-headline">
-            Get Our Service In 4 Steps
+            Get Our Service In <span className="italic font-normal">4 Steps</span>
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <motion.div
+          variants={{
+            hidden: { opacity: 0 },
+            show: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.1
+              }
+            }
+          }}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"
+        >
           {/* Step 1 */}
-          <div className="glass-panel p-8 rounded-2xl relative overflow-hidden group border border-elegant">
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 16 },
+              show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+            }}
+            className="glass-panel p-8 rounded-2xl relative overflow-hidden group border border-elegant"
+          >
             <div className="absolute top-0 right-0 bg-premium-gold text-background-midnight font-data-mono text-sm px-4 py-1.5 rounded-bl-xl font-bold">
               01
             </div>
@@ -276,10 +393,16 @@ export default function Home() {
             <p className="font-body-md text-body-md text-slate-text">
               First Step of Process
             </p>
-          </div>
+          </motion.div>
 
           {/* Step 2 */}
-          <div className="glass-panel p-8 rounded-2xl relative overflow-hidden group border border-elegant">
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 16 },
+              show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+            }}
+            className="glass-panel p-8 rounded-2xl relative overflow-hidden group border border-elegant"
+          >
             <div className="absolute top-0 right-0 bg-premium-gold text-background-midnight font-data-mono text-sm px-4 py-1.5 rounded-bl-xl font-bold">
               02
             </div>
@@ -292,10 +415,16 @@ export default function Home() {
             <p className="font-body-md text-body-md text-slate-text">
               Second Step of Process
             </p>
-          </div>
+          </motion.div>
 
           {/* Step 3 */}
-          <div className="glass-panel p-8 rounded-2xl relative overflow-hidden group border border-elegant">
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 16 },
+              show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+            }}
+            className="glass-panel p-8 rounded-2xl relative overflow-hidden group border border-elegant"
+          >
             <div className="absolute top-0 right-0 bg-premium-gold text-background-midnight font-data-mono text-sm px-4 py-1.5 rounded-bl-xl font-bold">
               03
             </div>
@@ -308,10 +437,16 @@ export default function Home() {
             <p className="font-body-md text-body-md text-slate-text">
               Third Step of Process
             </p>
-          </div>
+          </motion.div>
 
           {/* Step 4 */}
-          <div className="glass-panel p-8 rounded-2xl relative overflow-hidden group border border-elegant">
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 16 },
+              show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+            }}
+            className="glass-panel p-8 rounded-2xl relative overflow-hidden group border border-elegant"
+          >
             <div className="absolute top-0 right-0 bg-premium-gold text-background-midnight font-data-mono text-sm px-4 py-1.5 rounded-bl-xl font-bold">
               04
             </div>
@@ -324,19 +459,25 @@ export default function Home() {
             <p className="font-body-md text-body-md text-slate-text">
               Four Step of Process
             </p>
-          </div>
-        </div>
-      </section>
+          </motion.div>
+        </motion.div>
+      </motion.section>
 
       {/* Advantages Section */}
-      <section className="relative px-margin-mobile md:px-margin-desktop py-20 bg-surface-container-low before:absolute before:top-0 before:left-1/4 before:right-1/4 before:h-[1px] before:bg-gradient-to-r before:from-transparent before:via-primary/20 before:to-transparent before:content-[''] after:absolute after:bottom-0 after:left-1/4 after:right-1/4 after:h-[1px] after:bg-gradient-to-r after:from-transparent after:via-primary/20 after:to-transparent after:content-['']">
+      <motion.section
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="relative px-margin-mobile md:px-margin-desktop py-20 bg-surface-container-low before:absolute before:top-0 before:left-1/4 before:right-1/4 before:h-[1px] before:bg-gradient-to-r before:from-transparent before:via-primary/20 before:to-transparent before:content-[''] after:absolute after:bottom-0 after:left-1/4 after:right-1/4 after:h-[1px] after:bg-gradient-to-r after:from-transparent after:via-primary/20 after:to-transparent after:content-['']"
+      >
         <div className="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
             <span className="font-label-md text-label-md text-primary tracking-widest uppercase mb-2 block font-semibold">
               Why Choose Us
             </span>
             <h2 className="font-headline-lg text-3xl md:text-4xl font-bold text-on-surface mb-6 font-headline">
-              Our Advantages
+              Our <span className="italic">Advantages</span>
             </h2>
             <p className="font-body-md text-body-md text-slate-text mb-10 leading-relaxed">
               We help our clients to adhere to the money management as well as risk management principles, to make them accomplish their financial goals. Our analysts utilize the trend following strategies in a sophisticated manner to facilitate our clients grab the profits.
@@ -400,17 +541,23 @@ export default function Home() {
             />
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Mission Section */}
-      <section className="px-margin-mobile md:px-margin-desktop py-20 max-w-container-max mx-auto">
+      <motion.section
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="px-margin-mobile md:px-margin-desktop py-20 max-w-container-max mx-auto"
+      >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
           <div className="md:col-span-2">
             <span className="font-label-md text-label-md text-primary tracking-widest uppercase mb-2 block font-semibold">
               Our Mission
             </span>
             <h2 className="font-headline-lg text-2xl md:text-3xl font-bold text-on-surface mb-4 leading-tight font-headline">
-              We Come To Taking Care Of Your Investment
+              We Come To <span className="italic">Taking Care</span> Of Your Investment
             </h2>
             <p className="font-body-md text-body-md text-slate-text leading-relaxed">
               Our research team is committed to providing premium market intelligence. Every signal is supported by meticulous technical and fundamental analysis, ensuring high accuracy. Our clients consistently achieve financial stability and wealth growth.
@@ -428,7 +575,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-      </section>
+      </motion.section>
     </div>
   );
 }

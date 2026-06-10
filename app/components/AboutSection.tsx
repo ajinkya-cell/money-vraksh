@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export function AboutSection() {
   return (
@@ -36,7 +37,7 @@ export function AboutSection() {
           </span>
 
           <h2 className="font-headline-lg text-3xl md:text-4xl font-bold text-on-surface font-headline leading-tight">
-            Money Solutions for all your needs, throughout your life.
+            Money Solutions for all your needs, <span className="italic font-normal">throughout your life.</span>
           </h2>
 
           <p className="font-body-md text-body-md text-slate-text leading-relaxed">
@@ -66,14 +67,18 @@ export function AboutSection() {
 
           {/* Buttons */}
           <div className="flex flex-wrap items-center gap-4 pt-2">
-            <button className="gradient-bg-primary text-background font-label-md text-label-md px-8 py-4 rounded-full hover:shadow-[0_0_20px_rgba(78,222,163,0.5)] transition-all-slow flex items-center gap-2 font-bold hover:scale-[1.02] active:scale-[0.98]">
+            <motion.button
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              className="gradient-bg-primary text-background font-label-md text-label-md px-8 py-4 rounded-full hover:shadow-[0_0_20px_rgba(78,222,163,0.5)] transition-all-slow flex items-center gap-2 font-bold focus-ring cursor-pointer"
+            >
               Know More
               <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
-            </button>
+            </motion.button>
 
             <a
               href="tel:+918109888590"
-              className="flex items-center gap-3 group transition-all-slow"
+              className="flex items-center gap-3 group transition-all-slow focus-ring rounded-lg p-1"
             >
               <div className="w-11 h-11 rounded-full border border-elegant flex items-center justify-center group-hover:border-primary/50 transition-colors">
                 <svg className="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

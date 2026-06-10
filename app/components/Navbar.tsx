@@ -2,14 +2,27 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTheme } from "./ThemeProvider";
+import { motion } from "framer-motion";
+import Image from "next/image";
+
+const MotionLink = motion.create(Link);
 
 export default function Navbar() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -20,16 +33,24 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-surface-glass backdrop-blur-2xl fixed top-0 w-full shadow-sm z-50 transition-all duration-300 before:absolute before:bottom-0 before:left-1/4 before:right-1/4 before:h-[1px] before:bg-gradient-to-r before:from-transparent before:via-primary/20 before:to-transparent before:content-['']">
+    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+      isScrolled
+        ? "bg-surface-glass/95 backdrop-blur-2xl shadow-md border-b border-primary/20"
+        : "bg-surface-glass backdrop-blur-2xl shadow-sm border-b border-transparent"
+    } before:absolute before:bottom-0 before:left-1/4 before:right-1/4 before:h-[1px] before:bg-gradient-to-r before:from-transparent before:via-primary/20 before:to-transparent before:content-['']`}>
       <div className="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto w-full">
         {/* Brand */}
         <Link
           href="/"
-          className="font-headline-md text-headline-md font-bold text-primary flex items-center gap-2"
+          className="font-headline-md text-headline-md font-bold text-primary flex items-center gap-3 focus-ring rounded-lg py-1 px-2"
         >
-          <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>
-            account_balance
-          </span>
+          <Image
+            src="/logo.png"
+            alt="MoneyVraksh Logo"
+            width={32}
+            height={32}
+            className="object-contain"
+          />
           MoneyVraksh
         </Link>
 
@@ -41,7 +62,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`transition-all duration-200 font-body-md text-body-md ${
+                className={`transition-all duration-200 font-body-md text-body-md focus-ring rounded-sm ${
                   isActive
                     ? "text-primary font-bold border-b-2 border-primary pb-1"
                     : "text-on-surface-variant hover:text-primary"
@@ -59,7 +80,7 @@ export default function Navbar() {
           <div className="relative">
             <button
               onClick={() => setThemeMenuOpen(!themeMenuOpen)}
-              className="flex items-center justify-center p-2 rounded-full hover:bg-surface-container-high/50 text-on-surface-variant hover:text-primary transition-all duration-200 cursor-pointer"
+              className="flex items-center justify-center p-2 rounded-full hover:bg-surface-container-high/50 text-on-surface-variant hover:text-primary transition-all duration-200 cursor-pointer focus-ring"
               title="Switch Theme"
             >
               <span className="material-symbols-outlined">
@@ -79,7 +100,7 @@ export default function Navbar() {
                       setTheme("midnight");
                       setThemeMenuOpen(false);
                     }}
-                    className={`w-full text-left px-4 py-2 text-sm flex items-center gap-2 hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer ${
+                    className={`w-full text-left px-4 py-2 text-sm flex items-center gap-2 hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer focus-ring rounded-md ${
                       theme === "midnight" ? "text-primary font-bold" : "text-on-surface-variant"
                     }`}
                   >
@@ -91,7 +112,7 @@ export default function Navbar() {
                       setTheme("truedark");
                       setThemeMenuOpen(false);
                     }}
-                    className={`w-full text-left px-4 py-2 text-sm flex items-center gap-2 hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer ${
+                    className={`w-full text-left px-4 py-2 text-sm flex items-center gap-2 hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer focus-ring rounded-md ${
                       theme === "truedark" ? "text-primary font-bold" : "text-on-surface-variant"
                     }`}
                   >
@@ -103,7 +124,7 @@ export default function Navbar() {
                       setTheme("light");
                       setThemeMenuOpen(false);
                     }}
-                    className={`w-full text-left px-4 py-2 text-sm flex items-center gap-2 hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer ${
+                    className={`w-full text-left px-4 py-2 text-sm flex items-center gap-2 hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer focus-ring rounded-md ${
                       theme === "light" ? "text-primary font-bold" : "text-on-surface-variant"
                     }`}
                   >
@@ -115,17 +136,19 @@ export default function Navbar() {
             )}
           </div>
 
-          <Link
+          <MotionLink
             href="/contact"
-            className="hidden md:block gradient-bg-primary text-background font-label-md text-label-md px-6 py-2.5 rounded-full hover:shadow-[0_0_15px_rgba(78,222,163,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
+            className="hidden md:block gradient-bg-primary text-background font-label-md text-label-md px-6 py-2.5 rounded-full hover:shadow-[0_0_15px_rgba(78,222,163,0.4)] transition-all duration-300 focus-ring"
+            whileTap={{ scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
             Get Started
-          </Link>
+          </MotionLink>
 
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden text-on-surface p-2 hover:bg-surface-container-high/50 rounded-full transition-colors cursor-pointer"
+            className="md:hidden text-on-surface p-2 hover:bg-surface-container-high/50 rounded-full transition-colors cursor-pointer focus-ring"
           >
             <span className="material-symbols-outlined">
               {mobileMenuOpen ? "close" : "menu"}
@@ -141,7 +164,7 @@ export default function Navbar() {
             className="fixed inset-0 top-[60px] bg-black/60 backdrop-blur-sm z-40 md:hidden"
             onClick={() => setMobileMenuOpen(false)}
           />
-           <div className="absolute top-[60px] left-0 w-full glass-panel shadow-2xl py-6 px-6 z-50 flex flex-col gap-4 animate-slide-down md:hidden">
+          <div className="absolute top-[60px] left-0 w-full glass-panel shadow-2xl py-6 px-6 z-50 flex flex-col gap-4 animate-slide-down md:hidden">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -149,7 +172,7 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`text-lg font-body-md py-2 transition-all ${
+                  className={`text-lg font-body-md py-2 transition-all focus-ring rounded-sm ${
                     isActive ? "text-primary font-bold border-l-4 border-primary pl-3" : "text-on-surface-variant hover:text-primary"
                   }`}
                 >
@@ -157,13 +180,15 @@ export default function Navbar() {
                 </Link>
               );
             })}
-            <Link
+            <MotionLink
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center gradient-bg-primary text-background font-label-md text-label-md py-3 rounded-xl mt-2 font-bold shadow-lg"
+              className="w-full text-center gradient-bg-primary text-background font-label-md text-label-md py-3 rounded-xl mt-2 font-bold shadow-lg focus-ring"
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
               Get Started
-            </Link>
+            </MotionLink>
           </div>
         </>
       )}

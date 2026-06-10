@@ -30,7 +30,7 @@ export default function CategoryCard({ category, index }: CategoryCardProps) {
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.45, delay: index * 0.12 }}
     >
-      <Link href={`/services/${category.id}`} className="block group h-full">
+      <Link href={`/services/${category.id}`} className="block group h-full focus-ring rounded-2xl">
         <div className={`rounded-2xl border border-elegant bg-surface-container-low/20 h-full flex flex-col relative overflow-hidden transition-all duration-500 ${hoverBorder}`}
           style={{ boxShadow: `0 0 0px ${isEquity ? 'rgba(16,185,129,0)' : 'rgba(245,158,11,0)'}` }}
         >
@@ -67,7 +67,8 @@ export default function CategoryCard({ category, index }: CategoryCardProps) {
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-label-md text-sm font-bold text-white transition-all duration-300 self-start"
               style={{ background: btnBg }}
               whileHover={{ scale: 1.02, x: 2 }}
-              whileTap={{ scale: 0.98 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
               Explore Strategies
               <span className="material-symbols-outlined text-base">arrow_forward</span>

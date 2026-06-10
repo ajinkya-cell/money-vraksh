@@ -1,7 +1,10 @@
 'use client';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import CategoryCard from './components/CategoryCard';
 import { serviceCategories } from './data';
+
+const MotionLink = motion.create(Link);
 
 export default function ServicesPage() {
   return (
@@ -18,7 +21,7 @@ export default function ServicesPage() {
           className="mb-16 text-center md:text-left"
         >
           <h1 className="font-headline text-4xl md:text-6xl font-bold text-on-surface mb-6 mt-6 leading-tight">
-            Precision Strategies for <br className="hidden md:block" />
+            <span className="italic font-normal">Precision</span> Strategies for <br className="hidden md:block" />
             <span className="gradient-text-primary">Every Market Condition</span>
           </h1>
           <p className="font-body-lg text-body-lg text-slate-text max-w-2xl mx-auto md:mx-0 mb-6 leading-relaxed">
@@ -76,13 +79,15 @@ export default function ServicesPage() {
           <p className="font-body-lg text-body-lg text-slate-text max-w-xl mx-auto mb-8">
             Schedule a free consultation call and our experts will help you choose the right strategy.
           </p>
-          <a
+          <MotionLink
             href="/contact"
-            className="btn-primary inline-flex items-center gap-2 px-8 py-3.5 rounded-xl font-label-md text-sm font-bold text-white"
+            whileTap={{ scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            className="gradient-bg-primary inline-flex items-center gap-2 px-8 py-3.5 rounded-xl font-label-md text-sm font-bold text-background focus-ring cursor-pointer hover:shadow-[0_0_20px_rgba(78,222,163,0.5)] transition-all duration-300"
           >
             Book a Free Consultation
             <span className="material-symbols-outlined text-base">event</span>
-          </a>
+          </MotionLink>
         </motion.section>
       </main>
     </div>

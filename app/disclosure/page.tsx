@@ -129,13 +129,18 @@ export default function Disclosure() {
             <div className="sticky top-[120px] glass-panel rounded-2xl p-4 border border-elegant">
               <nav className="flex flex-col space-y-2">
                 {sections.map((sec) => (
-                  <a
+                  <button
                     key={sec.id}
-                    href={`#${sec.id}`}
-                    className="text-on-surface-variant hover:text-primary hover:bg-surface-container-high/30 px-4 py-3 border-l-2 border-transparent hover:border-primary rounded-r-lg font-label-md text-xs font-semibold uppercase tracking-wider transition-all duration-200"
+                    onClick={() => {
+                      const element = document.getElementById(sec.id);
+                      if (element) {
+                        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }
+                    }}
+                    className="text-left w-full text-on-surface-variant hover:text-primary hover:bg-surface-container-high/30 px-4 py-3 border-l-2 border-transparent hover:border-primary rounded-r-lg font-label-md text-xs font-semibold uppercase tracking-wider transition-all duration-200 cursor-pointer focus-ring"
                   >
                     {sec.title}
-                  </a>
+                  </button>
                 ))}
               </nav>
             </div>

@@ -8,6 +8,8 @@ import KeyMetricsBar from './KeyMetricsBar';
 import ServiceTabs from './ServiceTabs';
 import { serviceCategories } from '../data';
 
+const MotionLink = motion.create(Link);
+
 interface ServiceDetailPageProps {
   service: SubService;
 }
@@ -188,9 +190,9 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
           transition={{ duration: 0.3 }}
           className="flex items-center gap-2 mb-10 text-sm"
         >
-          <Link href="/services" className="text-on-surface-variant/60 hover:text-primary transition-colors font-label-md">Services</Link>
+          <Link href="/services" className="text-on-surface-variant/60 hover:text-primary transition-colors font-label-md focus-ring rounded-sm">Services</Link>
           <span className="material-symbols-outlined text-sm text-on-surface-variant/30">chevron_right</span>
-          <Link href={`/services/${service.category}`} className={`transition-colors font-label-md ${textAccent}`}>
+          <Link href={`/services/${service.category}`} className={`transition-colors font-label-md focus-ring rounded-sm ${textAccent}`}>
             {category.name}
           </Link>
           <span className="material-symbols-outlined text-sm text-on-surface-variant/30">chevron_right</span>
@@ -236,21 +238,25 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
               <PriceCard monthly={service.priceMonthly} quarterly={service.priceQuarterly} />
             </div>
             <div className="lg:col-span-2 flex flex-col justify-center gap-3">
-              <Link
+              <MotionLink
                 href="/contact"
-                className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-label-md text-sm font-bold text-white transition-all duration-300"
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-label-md text-sm font-bold text-white transition-all duration-300 focus-ring"
                 style={{ background: `linear-gradient(135deg, ${primaryHex}, ${secondaryHex})` }}
               >
                 Subscribe Now
                 <span className="material-symbols-outlined text-base">arrow_forward</span>
-              </Link>
-              <Link
+              </MotionLink>
+              <MotionLink
                 href="/contact"
-                className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-label-md text-sm font-medium border border-surface-container/50 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all duration-300"
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-label-md text-sm font-medium border border-surface-container/50 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all duration-300 focus-ring"
               >
                 <span className="material-symbols-outlined text-base">call</span>
                 Schedule a Call
-              </Link>
+              </MotionLink>
             </div>
           </div>
         </motion.div>
@@ -294,21 +300,25 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
             Join {category.name} traders who trust our research. Pick a plan that fits your goals.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link
+            <MotionLink
               href="/contact"
-              className="flex items-center gap-2 px-8 py-3.5 rounded-xl font-label-md text-sm font-bold text-white transition-all duration-300"
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              className="flex items-center gap-2 px-8 py-3.5 rounded-xl font-label-md text-sm font-bold text-white transition-all duration-300 focus-ring"
               style={{ background: `linear-gradient(135deg, ${primaryHex}, ${secondaryHex})` }}
             >
               Get Started Now
               <span className="material-symbols-outlined text-base">arrow_forward</span>
-            </Link>
-            <Link
+            </MotionLink>
+            <MotionLink
               href={`/services/${service.category}`}
-              className="flex items-center gap-2 px-8 py-3.5 rounded-xl font-label-md text-sm font-medium border border-surface-container/50 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all duration-300"
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              className="flex items-center gap-2 px-8 py-3.5 rounded-xl font-label-md text-sm font-medium border border-surface-container/50 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all duration-300 focus-ring"
             >
               <span className="material-symbols-outlined text-base">arrow_back</span>
               View All {category.name} Services
-            </Link>
+            </MotionLink>
           </div>
         </motion.div>
       </div>

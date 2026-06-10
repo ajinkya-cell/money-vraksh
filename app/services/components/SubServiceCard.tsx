@@ -36,7 +36,7 @@ export default function SubServiceCard({ service, index, categoryId }: SubServic
       viewport={{ once: true, margin: '-20px' }}
       transition={{ duration: 0.35, delay: index * 0.06 }}
     >
-      <Link href={`/services/${categoryId}/${service.slug}`} className="block group h-full">
+      <Link href={`/services/${categoryId}/${service.slug}`} className="block group h-full focus-ring rounded-xl">
         <div className={`rounded-xl border border-elegant bg-surface-container-low/20 h-full flex flex-col relative overflow-hidden transition-all duration-300 ${hoverBorder} ${hoverBg}`}>
           {service.isPopular && (
             <div className="absolute top-0 right-0">

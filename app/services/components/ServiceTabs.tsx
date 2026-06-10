@@ -23,7 +23,7 @@ export default function ServiceTabs({ tabs }: ServiceTabsProps) {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap focus-ring ${
               activeTab === tab.id
                 ? 'bg-surface-container text-on-surface shadow-sm border border-surface-container/50'
                 : 'text-on-surface-variant/60 hover:text-on-surface-variant hover:bg-surface-container-low/50'

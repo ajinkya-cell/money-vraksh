@@ -1,20 +1,28 @@
 import type { Metadata } from "next";
-import { Inter, Montserrat } from "next/font/google";
+import { Old_Standard_TT, Outfit, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./components/ThemeProvider";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { ToastContainer } from "./components/Toast";
 
-const inter = Inter({
-  variable: "--font-inter",
+const oldStandard = Old_Standard_TT({
+  variable: "--font-old-standard",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  weight: ["400", "700"],
+});
+
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
 });
 
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
-  weight: ["600", "700"],
+  weight: ["400", "500", "700"],
 });
 
 export const metadata: Metadata = {
@@ -30,7 +38,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${montserrat.variable} h-full antialiased`}
+      className={`${oldStandard.variable} ${outfit.variable} ${spaceGrotesk.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
@@ -46,6 +54,7 @@ export default function RootLayout({
             {children}
           </div>
           <Footer />
+          <ToastContainer />
         </ThemeProvider>
       </body>
     </html>
