@@ -65,7 +65,7 @@ export default function Footer() {
         {/* Disclaimer Block */}
         <div className="md:col-span-1 flex flex-col justify-end pt-6 md:pt-0 mt-6 md:mt-0">
           <p className="font-body-md text-body-md text-premium-gold text-xs leading-relaxed">
-            © {new Date().getFullYear()} MoneyVraksh. Investment in securities market are subject to market risks. Read all the related documents carefully before investing. SEBI Reg No: XXXXXXXXX.
+            © {new Date().getFullYear()} MoneyVraksh. Investment in securities market are subject to market risks. Read all the related documents carefully before investing. SEBI Reg. NO INH000025300.
           </p>
         </div>
       </div>

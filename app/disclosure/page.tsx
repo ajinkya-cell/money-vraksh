@@ -117,7 +117,7 @@ export default function Disclosure() {
                 Important Regulatory Notice
               </h2>
               <p className="font-body-lg text-body-md text-on-surface leading-relaxed">
-                Investment in securities markets are subject to market risks. Read all related documents carefully before investing. SEBI Registration No: <span className="font-data-mono text-data-mono text-on-surface bg-surface-container-high px-2 py-1 rounded font-bold">XXXXXXXXX (Details Pending)</span>.
+                Investment in securities markets are subject to market risks. Read all related documents carefully before investing. SEBI Registration No: <span className="font-data-mono text-data-mono text-on-surface bg-surface-container-high px-2 py-1 rounded font-bold">INH000025300</span>.
               </p>
             </div>
           </div>

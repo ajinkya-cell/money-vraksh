@@ -127,7 +127,7 @@ export default function About() {
                   SEBI Registration Status
                 </p>
                 <p className="font-data-mono text-data-mono text-primary font-bold text-sm">
-                  XXXXXXXXX (Details Pending)
+                  INH000025300
                 </p>
               </div>
               <span className="material-symbols-outlined text-success-emerald text-3xl">
