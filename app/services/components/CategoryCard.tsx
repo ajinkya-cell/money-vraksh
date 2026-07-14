@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ServiceCategory } from '../types';
+import { ServiceCategory, ACCENT_THEMES } from '../types';
 
 interface CategoryCardProps {
   category: ServiceCategory;
@@ -9,19 +9,16 @@ interface CategoryCardProps {
 }
 
 export default function CategoryCard({ category, index }: CategoryCardProps) {
-  const isEquity = category.id === 'equity';
+  const theme = ACCENT_THEMES[category.accentColor] || ACCENT_THEMES.emerald;
 
-  const iconWrapBorder = isEquity ? 'border-emerald-500/15' : 'border-amber-500/15';
-  const iconWrapBg = isEquity ? 'bg-emerald-500/8' : 'bg-amber-500/8';
-  const iconColor = isEquity ? 'text-emerald-400' : 'text-amber-400';
-  const badgeBg = isEquity ? 'bg-emerald-500/8' : 'bg-amber-500/8';
-  const badgeText = isEquity ? 'text-emerald-400' : 'text-amber-400';
-  const hoverBorder = isEquity ? 'hover:border-emerald-500/25' : 'hover:border-amber-500/25';
-  const glowBg = isEquity ? 'bg-emerald-500' : 'bg-amber-500';
-  const accentBar = isEquity ? 'bg-gradient-to-r from-emerald-500 to-teal-400' : 'bg-gradient-to-r from-amber-500 to-orange-400';
-  const btnBg = isEquity
-    ? 'linear-gradient(135deg, #10B981, #059669)'
-    : 'linear-gradient(135deg, #F59E0B, #EA580C)';
+  const iconColor = theme.text;
+  const badgeBg = theme.bg;
+  const badgeText = theme.text;
+  const accentBar = theme.accentBar;
+  const btnBg = theme.btnBg;
+
+  const initialShadow = "inset 0 1.5px 0 0 rgba(255, 255, 255, 0.08), inset 0 -1.5px 0 0 rgba(0, 0, 0, 0.4), 0 30px 80px rgba(0, 0, 0, 0.6)";
+  const hoverShadow = `inset 0 1.5px 0 0 rgba(255, 255, 255, 0.08), inset 0 -1.5px 0 0 rgba(0, 0, 0, 0.4), 0 20px 50px ${theme.glowRgba}`;
 
   return (
     <motion.div
@@ -31,15 +28,23 @@ export default function CategoryCard({ category, index }: CategoryCardProps) {
       transition={{ duration: 0.45, delay: index * 0.12 }}
     >
       <Link href={`/services/${category.id}`} className="block group h-full focus-ring rounded-2xl">
-        <div className={`rounded-2xl border border-elegant bg-surface-container-low/20 h-full flex flex-col relative overflow-hidden transition-all duration-500 ${hoverBorder}`}
-          style={{ boxShadow: `0 0 0px ${isEquity ? 'rgba(16,185,129,0)' : 'rgba(245,158,11,0)'}` }}
+        <motion.div 
+          whileHover={{
+            y: -3,
+            boxShadow: hoverShadow
+          }}
+          style={{
+            boxShadow: initialShadow
+          }}
+          transition={{
+            type: "spring",
+            stiffness: 200,
+            damping: 18
+          }}
+          className="bg-[#171717] rounded-2xl border-t border-white/20 border-x border-white/[0.02] border-b border-white/10 h-full flex flex-col relative overflow-visible"
         >
-          <div className={`absolute -top-24 -right-24 w-48 h-48 rounded-full opacity-[0.04] group-hover:opacity-[0.1] transition-opacity duration-700 ${glowBg}`}
-            style={{ filter: 'blur(80px)' }}
-          />
-
           <div className="relative z-10 p-8 md:p-10 flex-1 flex flex-col">
-            <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-6 border ${iconWrapBorder} ${iconWrapBg} group-hover:scale-110 transition-transform duration-400`}>
+            <div className="w-14 h-14 rounded-xl bg-[#070707] border border-white/5 shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.6)] flex items-center justify-center mb-6 group-hover:scale-105 transition-transform duration-300">
               <span className={`material-symbols-outlined text-3xl ${iconColor}`}
                 style={{ fontVariationSettings: "'FILL' 1" }}>
                 {category.icon}
@@ -76,7 +81,7 @@ export default function CategoryCard({ category, index }: CategoryCardProps) {
           </div>
 
           <div className={`absolute bottom-0 left-0 right-0 h-0.5 bg-transparent group-hover:opacity-100 transition-all duration-700 ${accentBar} opacity-0`} />
-        </div>
+        </motion.div>
       </Link>
     </motion.div>
   );

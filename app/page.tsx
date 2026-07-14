@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { AboutSection } from "./components/AboutSection";
 import { motion } from "framer-motion";
+import { serviceCategories } from "./services/data";
+import { ACCENT_THEMES } from "./services/types";
 
 const MotionLink = motion.create(Link);
 
@@ -246,98 +248,58 @@ export default function Home() {
           viewport={{ once: true }}
           className="grid grid-cols-1 md:grid-cols-3 gap-gutter"
         >
-          {/* Card 1 */}
-          <motion.div
-            variants={{
-              hidden: { opacity: 0, y: 16 },
-              show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
-            }}
-            className="glass-panel glass-panel-hover rounded-2xl p-8 flex flex-col group border border-elegant hover:border-primary/40"
-          >
-            <div className="w-14 h-14 rounded-xl bg-surface-container-high border border-elegant flex items-center justify-center mb-6 group-hover:bg-primary/10 group-hover:border-primary/30 transition-colors">
-              <span className="material-symbols-outlined text-primary text-3xl">
-                show_chart
-              </span>
-            </div>
-            <h3 className="font-headline-md text-xl font-bold text-on-surface mb-3 font-headline">
-              Stock Cash Basic
-            </h3>
-            <p className="font-body-md text-body-md text-slate-text mb-8 flex-grow">
-              Entry-level research insights for short-term and medium-term equity cash market opportunities
-            </p>
-            <Link
-              href="/services"
-              className="font-label-md text-label-md text-primary flex items-center gap-2 w-fit group-hover:text-primary-fixed transition-colors font-bold focus-ring rounded-sm"
-            >
-              Read More
-              <span className="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">
-                arrow_right_alt
-              </span>
-            </Link>
-          </motion.div>
+          {serviceCategories.slice(0, 3).map((category, idx) => {
+            const theme = ACCENT_THEMES[category.accentColor] || ACCENT_THEMES.emerald;
+            const cardShadow = "inset 0 1.5px 0 0 rgba(255, 255, 255, 0.08), inset 0 -1.5px 0 0 rgba(0, 0, 0, 0.4)";
 
-          {/* Card 2 */}
-          <motion.div
-            variants={{
-              hidden: { opacity: 0, y: 16 },
-              show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
-            }}
-            className="glass-panel glass-panel-hover rounded-2xl p-8 flex flex-col group relative overflow-hidden border border-elegant hover:border-primary/40"
-          >
-            <div className="absolute top-0 right-0 bg-premium-gold text-background-midnight font-data-mono text-[10px] px-4 py-1.5 rounded-bl-xl font-bold tracking-wider uppercase">
-              POPULAR
-            </div>
-            <div className="w-14 h-14 rounded-xl bg-surface-container-high border border-elegant flex items-center justify-center mb-6 group-hover:bg-primary/10 group-hover:border-primary/30 transition-colors">
-              <span className="material-symbols-outlined text-primary text-3xl">
-                finance
-              </span>
-            </div>
-            <h3 className="font-headline-md text-xl font-bold text-on-surface mb-3 font-headline">
-              Stock Cash Premium
-            </h3>
-            <p className="font-body-md text-body-md text-slate-text mb-8 flex-grow">
-              High-conviction calls with dedicated support for serious equity investors seeking alpha.
-            </p>
-            <Link
-              href="/services"
-              className="font-label-md text-label-md text-primary flex items-center gap-2 w-fit group-hover:text-primary-fixed transition-colors font-bold focus-ring rounded-sm"
-            >
-              Read More
-              <span className="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">
-                arrow_right_alt
-              </span>
-            </Link>
-          </motion.div>
-
-          {/* Card 3 */}
-          <motion.div
-            variants={{
-              hidden: { opacity: 0, y: 16 },
-              show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
-            }}
-            className="glass-panel glass-panel-hover rounded-2xl p-8 flex flex-col group border border-elegant hover:border-primary/40"
-          >
-            <div className="w-14 h-14 rounded-xl bg-surface-container-high border border-elegant flex items-center justify-center mb-6 group-hover:bg-primary/10 group-hover:border-primary/30 transition-colors">
-              <span className="material-symbols-outlined text-primary text-3xl">
-                candlestick_chart
-              </span>
-            </div>
-            <h3 className="font-headline-md text-xl font-bold text-on-surface mb-3 font-headline">
-              Stock Future Basic
-            </h3>
-            <p className="font-body-md text-body-md text-slate-text mb-8 flex-grow">
-              Derivatives research focusing on index and stock futures with calculated risk-reward ratios.
-            </p>
-            <Link
-              href="/services"
-              className="font-label-md text-label-md text-primary flex items-center gap-2 w-fit group-hover:text-primary-fixed transition-colors font-bold focus-ring rounded-sm"
-            >
-              Read More
-              <span className="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">
-                arrow_right_alt
-              </span>
-            </Link>
-          </motion.div>
+            return (
+              <motion.div
+                key={category.id}
+                variants={{
+                  hidden: { opacity: 0, y: 16 },
+                  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+                }}
+                whileHover={{
+                  y: -3
+                }}
+                style={{
+                  boxShadow: cardShadow
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 200,
+                  damping: 18
+                }}
+                className="bg-[#171717] rounded-2xl p-8 flex flex-col group border-t border-white/20 border-x border-white/[0.02] border-b border-white/10 relative overflow-visible"
+              >
+                {idx === 1 && (
+                  <div className="absolute top-0 right-0 bg-premium-gold text-background-midnight font-data-mono text-[10px] px-4 py-1.5 rounded-bl-xl font-bold tracking-wider uppercase z-20">
+                    POPULAR
+                  </div>
+                )}
+                <div className="w-14 h-14 rounded-xl bg-[#070707] border border-white/5 shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.6)] flex items-center justify-center mb-6 group-hover:scale-105 transition-transform duration-300">
+                  <span className={`material-symbols-outlined ${theme.text} text-3xl`}>
+                    {category.icon}
+                  </span>
+                </div>
+                <h3 className="font-headline-md text-xl font-bold text-on-surface mb-3 font-headline">
+                  {category.name}
+                </h3>
+                <p className="font-body-md text-body-md text-slate-text mb-8 flex-grow">
+                  {category.description}
+                </p>
+                <Link
+                  href={`/services/${category.id}`}
+                  className={`font-label-md text-label-md ${theme.text} flex items-center gap-2 w-fit hover:opacity-80 transition-colors font-bold focus-ring rounded-sm`}
+                >
+                  Read More
+                  <span className="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">
+                    arrow_right_alt
+                  </span>
+                </Link>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </motion.section>
 
@@ -379,14 +341,23 @@ export default function Home() {
               hidden: { opacity: 0, y: 16 },
               show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
             }}
-            className="glass-panel p-8 rounded-2xl relative overflow-hidden group border border-elegant"
+            whileHover={{
+              y: -3
+            }}
+            style={{
+              boxShadow: "inset 0 1.5px 0 0 rgba(255, 255, 255, 0.08), inset 0 -1.5px 0 0 rgba(0, 0, 0, 0.4)"
+            }}
+            transition={{ type: "spring", stiffness: 200, damping: 18 }}
+            className="bg-[#171717] p-8 rounded-2xl relative overflow-visible group border-t border-white/20 border-x border-white/[0.02] border-b border-white/10 flex flex-col"
           >
-            <div className="absolute top-0 right-0 bg-premium-gold text-background-midnight font-data-mono text-sm px-4 py-1.5 rounded-bl-xl font-bold">
+            <div className="absolute top-0 right-0 bg-[#070707] text-premium-gold border-b border-l border-white/10 font-data-mono text-sm px-4 py-1.5 rounded-bl-xl font-bold shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.6)]">
               01
             </div>
-            <span className="material-symbols-outlined text-4xl text-primary mb-6">
-              contact_support
-            </span>
+            <div className="w-14 h-14 rounded-xl bg-[#070707] border border-white/5 shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.6)] flex items-center justify-center mb-6 group-hover:scale-105 transition-transform duration-300">
+              <span className="material-symbols-outlined text-4xl text-primary">
+                contact_support
+              </span>
+            </div>
             <h3 className="font-headline-md text-lg font-bold text-on-surface mb-2 font-headline">
               Contact Us
             </h3>
@@ -401,14 +372,23 @@ export default function Home() {
               hidden: { opacity: 0, y: 16 },
               show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
             }}
-            className="glass-panel p-8 rounded-2xl relative overflow-hidden group border border-elegant"
+            whileHover={{
+              y: -3
+            }}
+            style={{
+              boxShadow: "inset 0 1.5px 0 0 rgba(255, 255, 255, 0.08), inset 0 -1.5px 0 0 rgba(0, 0, 0, 0.4)"
+            }}
+            transition={{ type: "spring", stiffness: 200, damping: 18 }}
+            className="bg-[#171717] p-8 rounded-2xl relative overflow-visible group border-t border-white/20 border-x border-white/[0.02] border-b border-white/10 flex flex-col"
           >
-            <div className="absolute top-0 right-0 bg-premium-gold text-background-midnight font-data-mono text-sm px-4 py-1.5 rounded-bl-xl font-bold">
+            <div className="absolute top-0 right-0 bg-[#070707] text-premium-gold border-b border-l border-white/10 font-data-mono text-sm px-4 py-1.5 rounded-bl-xl font-bold shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.6)]">
               02
             </div>
-            <span className="material-symbols-outlined text-4xl text-primary mb-6">
-              strategy
-            </span>
+            <div className="w-14 h-14 rounded-xl bg-[#070707] border border-white/5 shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.6)] flex items-center justify-center mb-6 group-hover:scale-105 transition-transform duration-300">
+              <span className="material-symbols-outlined text-4xl text-primary">
+                strategy
+              </span>
+            </div>
             <h3 className="font-headline-md text-lg font-bold text-on-surface mb-2 font-headline">
               Investment Strategy
             </h3>
@@ -423,14 +403,23 @@ export default function Home() {
               hidden: { opacity: 0, y: 16 },
               show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
             }}
-            className="glass-panel p-8 rounded-2xl relative overflow-hidden group border border-elegant"
+            whileHover={{
+              y: -3
+            }}
+            style={{
+              boxShadow: "inset 0 1.5px 0 0 rgba(255, 255, 255, 0.08), inset 0 -1.5px 0 0 rgba(0, 0, 0, 0.4)"
+            }}
+            transition={{ type: "spring", stiffness: 200, damping: 18 }}
+            className="bg-[#171717] p-8 rounded-2xl relative overflow-visible group border-t border-white/20 border-x border-white/[0.02] border-b border-white/10 flex flex-col"
           >
-            <div className="absolute top-0 right-0 bg-premium-gold text-background-midnight font-data-mono text-sm px-4 py-1.5 rounded-bl-xl font-bold">
+            <div className="absolute top-0 right-0 bg-[#070707] text-premium-gold border-b border-l border-white/10 font-data-mono text-sm px-4 py-1.5 rounded-bl-xl font-bold shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.6)]">
               03
             </div>
-            <span className="material-symbols-outlined text-4xl text-primary mb-6">
-              model_training
-            </span>
+            <div className="w-14 h-14 rounded-xl bg-[#070707] border border-white/5 shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.6)] flex items-center justify-center mb-6 group-hover:scale-105 transition-transform duration-300">
+              <span className="material-symbols-outlined text-4xl text-primary">
+                model_training
+              </span>
+            </div>
             <h3 className="font-headline-md text-lg font-bold text-on-surface mb-2 font-headline">
               Follow our guidance
             </h3>
@@ -445,14 +434,23 @@ export default function Home() {
               hidden: { opacity: 0, y: 16 },
               show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
             }}
-            className="glass-panel p-8 rounded-2xl relative overflow-hidden group border border-elegant"
+            whileHover={{
+              y: -3
+            }}
+            style={{
+              boxShadow: "inset 0 1.5px 0 0 rgba(255, 255, 255, 0.08), inset 0 -1.5px 0 0 rgba(0, 0, 0, 0.4)"
+            }}
+            transition={{ type: "spring", stiffness: 200, damping: 18 }}
+            className="bg-[#171717] p-8 rounded-2xl relative overflow-visible group border-t border-white/20 border-x border-white/[0.02] border-b border-white/10 flex flex-col"
           >
-            <div className="absolute top-0 right-0 bg-premium-gold text-background-midnight font-data-mono text-sm px-4 py-1.5 rounded-bl-xl font-bold">
+            <div className="absolute top-0 right-0 bg-[#070707] text-premium-gold border-b border-l border-white/10 font-data-mono text-sm px-4 py-1.5 rounded-bl-xl font-bold shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.6)]">
               04
             </div>
-            <span className="material-symbols-outlined text-4xl text-primary mb-6">
-              insights
-            </span>
+            <div className="w-14 h-14 rounded-xl bg-[#070707] border border-white/5 shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.6)] flex items-center justify-center mb-6 group-hover:scale-105 transition-transform duration-300">
+              <span className="material-symbols-outlined text-4xl text-primary">
+                insights
+              </span>
+            </div>
             <h3 className="font-headline-md text-lg font-bold text-on-surface mb-2 font-headline">
               Start Investing
             </h3>

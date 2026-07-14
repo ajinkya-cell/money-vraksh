@@ -1,16 +1,23 @@
+import { notFound } from 'next/navigation';
 import { serviceCategories, getSubService } from '../../data';
 import ServiceDetailPage from '../../components/ServiceDetailPage';
-import { notFound } from 'next/navigation';
 
 export function generateStaticParams() {
-  const category = serviceCategories.find(c => c.id === 'fo');
-  if (!category) return [];
-  return category.subServices.map(service => ({ slug: service.slug }));
+  return serviceCategories.flatMap(category =>
+    category.subServices.map(service => ({
+      category: category.id,
+      slug: service.slug,
+    }))
+  );
 }
 
-export default async function FODetailPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const service = getSubService('fo', slug);
+export default async function ServiceDetailPageWrapper({
+  params,
+}: {
+  params: Promise<{ category: string; slug: string }>;
+}) {
+  const { category: categoryId, slug } = await params;
+  const service = getSubService(categoryId, slug);
 
   if (!service) {
     notFound();

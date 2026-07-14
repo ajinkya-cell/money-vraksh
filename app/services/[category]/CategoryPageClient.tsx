@@ -1,0 +1,154 @@
+'use client';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import SubServiceCard from '../components/SubServiceCard';
+import { ServiceCategory, ACCENT_THEMES } from '../types';
+
+interface CategoryPageClientProps {
+  category: ServiceCategory;
+}
+
+export default function CategoryPageClient({ category }: CategoryPageClientProps) {
+  const theme = ACCENT_THEMES[category.accentColor] || ACCENT_THEMES.emerald;
+
+  const textAccent = theme.text;
+  const borderClass = theme.border;
+  const bgAccent = theme.bg;
+  const glowBgClass = theme.glow;
+  const gradientClass = theme.gradient;
+  const btnBg = theme.btnBg;
+
+  // Split subservices into Intraday and Positional
+  const intradayServices = category.subServices.filter(
+    s => s.categoryLabel.toLowerCase() === 'intraday'
+  );
+  const positionalServices = category.subServices.filter(
+    s => s.categoryLabel.toLowerCase() === 'positional'
+  );
+
+  return (
+    <div className="relative w-full overflow-x-hidden min-h-screen pt-[120px] pb-24">
+      {/* Dynamic background gradient */}
+      <div className={`absolute inset-0 bg-gradient-to-b ${gradientClass} pointer-events-none`} />
+      <div className={`absolute top-[-200px] left-[-200px] w-[600px] h-[600px] rounded-full opacity-[0.03] ${glowBgClass}`}
+        style={{ filter: 'blur(120px)' }} />
+
+      <main className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop w-full relative z-10">
+        {/* Breadcrumb */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="flex items-center gap-2 mb-8 text-sm"
+        >
+          <Link href="/services" className="text-slate-text hover:text-primary transition-colors font-label-md">Services</Link>
+          <span className="material-symbols-outlined text-sm text-slate-text">chevron_right</span>
+          <span className={`font-label-md ${textAccent}`}>{category.name}</span>
+        </motion.div>
+
+        {/* Hero */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mb-16"
+        >
+          <div className="flex items-center gap-4 mb-6">
+            <div className={`w-14 h-14 rounded-xl ${bgAccent} border ${borderClass} flex items-center justify-center`}>
+              <span className={`material-symbols-outlined text-3xl ${textAccent}`} style={{ fontVariationSettings: "'FILL' 1" }}>
+                {category.icon}
+              </span>
+            </div>
+            <div>
+              <span className={`inline-block px-3 py-1 rounded-lg ${bgAccent} ${textAccent} text-xs font-bold tracking-wider uppercase`}>
+                {category.shortName}
+              </span>
+              <h1 className="font-headline text-3xl md:text-5xl font-bold text-on-surface mt-2 leading-tight">
+                {category.name} Strategies
+              </h1>
+            </div>
+          </div>
+          <p className="font-body-lg text-body-lg text-slate-text max-w-2xl leading-relaxed">
+            {category.longDescription}
+          </p>
+        </motion.section>
+
+        {/* Section A: Intraday Calls */}
+        {intradayServices.length > 0 && (
+          <section className="mb-16">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 border-b border-elegant pb-4">
+              <div className="flex items-center gap-3">
+                <div className={`h-8 w-1 ${glowBgClass} rounded-full`} />
+                <div>
+                  <h2 className="font-headline-lg text-2xl font-bold text-on-surface font-headline">
+                    Intraday Trading Calls
+                  </h2>
+                  <p className="text-xs text-slate-text mt-1">Same-day positions with strict target entries and capital safety rules</p>
+                </div>
+              </div>
+              <span className="text-slate-text font-label-md text-xs">
+                {intradayServices.length} Active Services
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {intradayServices.map((service, idx) => (
+                <SubServiceCard key={service.id} service={service} index={idx} categoryId={category.id} />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Section B: Positional Calls */}
+        {positionalServices.length > 0 && (
+          <section className="mb-16">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 border-b border-elegant pb-4">
+              <div className="flex items-center gap-3">
+                <div className={`h-8 w-1 ${glowBgClass} rounded-full`} />
+                <div>
+                  <h2 className="font-headline-lg text-2xl font-bold text-on-surface font-headline">
+                    Positional &amp; Holding Calls
+                  </h2>
+                  <p className="text-xs text-slate-text mt-1">Multi-day swings and investment suggestions for progressive capital growth</p>
+                </div>
+              </div>
+              <span className="text-slate-text font-label-md text-xs">
+                {positionalServices.length} Active Services
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {positionalServices.map((service, idx) => (
+                <SubServiceCard key={service.id} service={service} index={idx} categoryId={category.id} />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Bottom CTA */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="glass-panel rounded-2xl p-8 md:p-12 border border-elegant text-center"
+        >
+          <h2 className="font-headline-md text-2xl font-bold text-on-surface mb-4 font-headline">
+            Need Help Choosing a {category.name} Service?
+          </h2>
+          <p className="font-body-lg text-body-lg text-slate-text max-w-xl mx-auto mb-8">
+            Our advisory team will analyze your risk tolerance and find the perfect match.
+          </p>
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl font-label-md text-sm font-bold text-white transition-all duration-300"
+            style={{ background: btnBg }}
+          >
+            Talk to an Expert
+            <span className="material-symbols-outlined text-base">support_agent</span>
+          </Link>
+        </motion.section>
+      </main>
+    </div>
+  );
+}

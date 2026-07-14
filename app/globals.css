@@ -2,8 +2,8 @@
 
 :root {
   /* Default to Midnight theme values */
-  --bg-midnight: #040B16;
-  --bg-main: #0c141f;
+  --bg-midnight: #000000;
+  --bg-main: #000000;
   --color-primary: #4edea3;
   --color-primary-container: #10b981;
   --color-success-emerald: #10B981;
@@ -20,16 +20,16 @@
   --on-primary: #003824;
   --inverse-primary: #006c49;
   --error: #ffb4ab;
-  --font-display: var(--font-old-standard);
-  --font-headline: var(--font-old-standard);
+  --font-display: 'Geist Pixel', sans-serif;
+  --font-headline: 'Geist Pixel', sans-serif;
   --font-body: var(--font-outfit);
   --font-mono: var(--font-space-grotesk);
 }
 
 /* Explicit Themes */
 .theme-midnight {
-  --bg-midnight: #040B16;
-  --bg-main: #0c141f;
+  --bg-midnight: #000000;
+  --bg-main: #000000;
   --color-primary: #4edea3;
   --color-primary-container: #10b981;
   --color-success-emerald: #10B981;
@@ -173,7 +173,7 @@ body {
   position: absolute;
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(78, 222, 163, 0.12) 0%, rgba(4, 11, 22, 0) 70%);
+  background: radial-gradient(circle, rgba(78, 222, 163, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
   border-radius: 50%;
   pointer-events: none;
   z-index: -1;
@@ -187,7 +187,7 @@ body {
   position: absolute;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, rgba(4, 11, 22, 0) 70%);
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
   border-radius: 50%;
   pointer-events: none;
   z-index: -1;

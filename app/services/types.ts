@@ -1,5 +1,11 @@
 export type RiskLevel = 'Low' | 'Medium' | 'High';
-export type CategoryId = 'equity' | 'fo';
+export type CategoryId =
+  | 'equity-cash'
+  | 'stock-futures'
+  | 'index-futures'
+  | 'stock-options'
+  | 'index-options'
+  | 'mcx-commodity';
 
 export interface SubService {
   id: string;
@@ -20,6 +26,8 @@ export interface SubService {
   followUp: string;
   priceMonthly: number;
   priceQuarterly: number;
+  priceHalfYearly: number;
+  priceYearly: number;
   icon: string;
   iconColor: string;
   borderColor: string;
@@ -64,15 +72,97 @@ export const RISK_CONFIG: Record<RiskLevel, { label: string; color: string; bg: 
   }
 };
 
-export const CATEGORY_CONFIG: Record<CategoryId, { gradient: string; accent: string; borderGlow: string }> = {
-  equity: {
+export interface ColorTheme {
+  text: string;
+  bg: string;
+  border: string;
+  hoverBorder: string;
+  glow: string;
+  accentBar: string;
+  gradient: string;
+  btnBg: string;
+  primaryHex: string;
+  secondaryHex: string;
+  glowRgba: string;
+}
+
+export const ACCENT_THEMES: Record<string, ColorTheme> = {
+  emerald: {
+    text: 'text-emerald-400',
+    bg: 'bg-emerald-500/8',
+    border: 'border-emerald-500/15',
+    hoverBorder: 'hover:border-emerald-500/25',
+    glow: 'bg-emerald-500',
+    accentBar: 'bg-gradient-to-r from-emerald-500 to-teal-400',
     gradient: 'from-emerald-500/20 via-teal-500/10 to-transparent',
-    accent: 'emerald',
-    borderGlow: 'border-emerald-500/40'
+    btnBg: 'linear-gradient(135deg, #10B981, #059669)',
+    primaryHex: '#10B981',
+    secondaryHex: '#059669',
+    glowRgba: 'rgba(16, 185, 129, 0.5)',
   },
-  fo: {
+  amber: {
+    text: 'text-amber-400',
+    bg: 'bg-amber-500/8',
+    border: 'border-amber-500/15',
+    hoverBorder: 'hover:border-amber-500/25',
+    glow: 'bg-amber-500',
+    accentBar: 'bg-gradient-to-r from-amber-500 to-orange-400',
     gradient: 'from-amber-500/20 via-orange-500/10 to-transparent',
-    accent: 'amber',
-    borderGlow: 'border-amber-500/40'
+    btnBg: 'linear-gradient(135deg, #F59E0B, #EA580C)',
+    primaryHex: '#F59E0B',
+    secondaryHex: '#EA580C',
+    glowRgba: 'rgba(245, 158, 11, 0.5)',
+  },
+  blue: {
+    text: 'text-blue-400',
+    bg: 'bg-blue-500/8',
+    border: 'border-blue-500/15',
+    hoverBorder: 'hover:border-blue-500/25',
+    glow: 'bg-blue-500',
+    accentBar: 'bg-gradient-to-r from-blue-500 to-indigo-400',
+    gradient: 'from-blue-500/20 via-indigo-500/10 to-transparent',
+    btnBg: 'linear-gradient(135deg, #3B82F6, #2563EB)',
+    primaryHex: '#3B82F6',
+    secondaryHex: '#2563EB',
+    glowRgba: 'rgba(59, 130, 246, 0.5)',
+  },
+  rose: {
+    text: 'text-rose-400',
+    bg: 'bg-rose-500/8',
+    border: 'border-rose-500/15',
+    hoverBorder: 'hover:border-rose-500/25',
+    glow: 'bg-rose-500',
+    accentBar: 'bg-gradient-to-r from-rose-500 to-pink-400',
+    gradient: 'from-rose-500/20 via-pink-500/10 to-transparent',
+    btnBg: 'linear-gradient(135deg, #F43F5E, #E11D48)',
+    primaryHex: '#F43F5E',
+    secondaryHex: '#E11D48',
+    glowRgba: 'rgba(244, 63, 94, 0.5)',
+  },
+  violet: {
+    text: 'text-violet-400',
+    bg: 'bg-violet-500/8',
+    border: 'border-violet-500/15',
+    hoverBorder: 'hover:border-violet-500/25',
+    glow: 'bg-violet-500',
+    accentBar: 'bg-gradient-to-r from-violet-500 to-purple-400',
+    gradient: 'from-violet-500/20 via-purple-500/10 to-transparent',
+    btnBg: 'linear-gradient(135deg, #8B5CF6, #7C3AED)',
+    primaryHex: '#8B5CF6',
+    secondaryHex: '#7C3AED',
+    glowRgba: 'rgba(139, 92, 246, 0.5)',
+  },
+  yellow: {
+    text: 'text-yellow-400',
+    bg: 'bg-yellow-500/8',
+    border: 'border-yellow-500/15',
+    hoverBorder: 'hover:border-yellow-500/25',
+    glow: 'bg-yellow-500',
+    accentBar: 'bg-gradient-to-r from-yellow-500 to-amber-500',
+    gradient: 'from-yellow-500/20 via-amber-500/10 to-transparent',
+    btnBg: 'linear-gradient(135deg, #EAB308, #CA8A04)',
+    primaryHex: '#EAB308',
+    secondaryHex: '#CA8A04',
+    glowRgba: 'rgba(234, 179, 8, 0.5)',
   }
 };

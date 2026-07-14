@@ -1,17 +1,10 @@
 import type { Metadata } from "next";
-import { Old_Standard_TT, Outfit, Space_Grotesk } from "next/font/google";
+import { Outfit, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./components/ThemeProvider";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { ToastContainer } from "./components/Toast";
-
-const oldStandard = Old_Standard_TT({
-  variable: "--font-old-standard",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  weight: ["400", "700"],
-});
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -38,10 +31,16 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${oldStandard.variable} ${outfit.variable} ${spaceGrotesk.variable} h-full antialiased`}
+      className={`${outfit.variable} ${spaceGrotesk.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Geist+Pixel&display=swap"
+          rel="stylesheet"
+        />
         <link
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
           rel="stylesheet"

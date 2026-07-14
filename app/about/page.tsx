@@ -7,6 +7,9 @@ import { motion } from "framer-motion";
 const MotionLink = motion.create(Link);
 
 export default function About() {
+  const cardShadow = "inset 0 1.5px 0 0 rgba(255, 255, 255, 0.08), inset 0 -1.5px 0 0 rgba(0, 0, 0, 0.4)";
+  const springTransition = { type: "spring" as const, stiffness: 200, damping: 18 };
+
   return (
     <div className="relative w-full overflow-x-hidden min-h-screen pt-[120px] pb-24">
       {/* Ambient Light Leak */}
@@ -26,13 +29,19 @@ export default function About() {
         {/* Bento Grid: Story & Values */}
         <section className="grid grid-cols-1 md:grid-cols-12 gap-gutter mb-24">
           {/* Company Story (Spans 8 columns) */}
-          <div className="glass-panel rounded-2xl p-8 md:col-span-8 flex flex-col justify-center relative overflow-hidden group border border-elegant">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <motion.div
+            whileHover={{ y: -3 }}
+            style={{ boxShadow: cardShadow }}
+            transition={springTransition}
+            className="bg-[#171717] rounded-2xl p-8 md:col-span-8 flex flex-col justify-center relative overflow-hidden group border-t border-white/20 border-x border-white/[0.02] border-b border-white/10"
+          >
             <div className="relative z-10">
               <div className="flex items-center gap-3 mb-6">
-                <span className="material-symbols-outlined text-premium-gold" style={{ fontVariationSettings: "'FILL' 1" }}>
-                  history_edu
-                </span>
+                <div className="w-12 h-12 rounded-xl bg-[#070707] border border-white/5 shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.6)] flex items-center justify-center shrink-0">
+                  <span className="material-symbols-outlined text-premium-gold" style={{ fontVariationSettings: "'FILL' 1" }}>
+                    history_edu
+                  </span>
+                </div>
                 <h2 className="font-headline-lg text-2xl md:text-3xl font-bold font-headline">Our <span className="italic">Story</span></h2>
               </div>
               <p className="text-slate-text mb-4 leading-relaxed font-body-md">
@@ -42,14 +51,21 @@ export default function About() {
                 Our deep-rooted expertise in navigating volatile markets ensures that our clients are always positioned strategically, leveraging both macro trends and micro anomalies to secure sustained growth.
               </p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Core Values (Spans 4 columns) */}
-          <div className="glass-panel rounded-2xl p-8 md:col-span-4 relative overflow-hidden border border-elegant">
+          <motion.div
+            whileHover={{ y: -3 }}
+            style={{ boxShadow: cardShadow }}
+            transition={springTransition}
+            className="bg-[#171717] rounded-2xl p-8 md:col-span-4 relative overflow-hidden border-t border-white/20 border-x border-white/[0.02] border-b border-white/10"
+          >
             <div className="flex items-center gap-3 mb-6">
-              <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>
-                diamond
-              </span>
+              <div className="w-12 h-12 rounded-xl bg-[#070707] border border-white/5 shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.6)] flex items-center justify-center shrink-0">
+                <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>
+                  diamond
+                </span>
+              </div>
               <h2 className="font-headline-md text-xl font-bold font-headline">Core <span className="italic">Values</span></h2>
             </div>
             <ul className="space-y-4">
@@ -82,13 +98,18 @@ export default function About() {
                 </div>
               </li>
             </ul>
-          </div>
+          </motion.div>
         </section>
 
         {/* Leadership & Compliance */}
         <section className="grid grid-cols-1 md:grid-cols-2 gap-gutter mb-24">
           {/* Leadership Message */}
-          <div className="glass-panel rounded-2xl p-8 border border-elegant border-l-4 border-l-primary flex flex-col justify-between">
+          <motion.div
+            whileHover={{ y: -3 }}
+            style={{ boxShadow: cardShadow }}
+            transition={springTransition}
+            className="bg-[#171717] rounded-2xl p-8 border-t border-white/20 border-x border-white/[0.02] border-b border-white/10 border-l-4 border-l-primary flex flex-col justify-between"
+          >
             <div className="flex items-center gap-4 mb-6">
               <div className="w-16 h-16 rounded-full bg-surface-variant overflow-hidden border border-elegant relative">
                 <Image
@@ -106,22 +127,29 @@ export default function About() {
             <blockquote className="italic text-slate-text mb-4 border-l border-elegant pl-4 leading-relaxed font-body-md">
               &quot;In an era of information overload, true value lies in synthesized intelligence. At MoneyVraksh, we don&apos;t just provide data; we provide conviction. Our goal is to transform complexity into clarity, empowering you to navigate the financial markets with absolute confidence.&quot;
             </blockquote>
-          </div>
+          </motion.div>
 
           {/* Compliance */}
-          <div className="glass-panel rounded-2xl p-8 bg-surface-container-low/50 border border-elegant flex flex-col justify-between">
+          <motion.div
+            whileHover={{ y: -3 }}
+            style={{ boxShadow: cardShadow }}
+            transition={springTransition}
+            className="bg-[#171717] rounded-2xl p-8 border-t border-white/20 border-x border-white/[0.02] border-b border-white/10 flex flex-col justify-between"
+          >
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <span className="material-symbols-outlined text-error" style={{ fontVariationSettings: "'FILL' 1" }}>
-                  gavel
-                </span>
+                <div className="w-12 h-12 rounded-xl bg-[#070707] border border-white/5 shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.6)] flex items-center justify-center shrink-0">
+                  <span className="material-symbols-outlined text-error" style={{ fontVariationSettings: "'FILL' 1" }}>
+                    gavel
+                  </span>
+                </div>
                 <h2 className="font-headline-md text-xl font-bold font-headline text-on-surface">Regulatory <span className="italic">Compliance</span></h2>
               </div>
               <p className="text-slate-text mb-6 leading-relaxed font-body-md">
                 We operate strictly under the regulatory guidelines, ensuring maximum capital protection, risk mitigation, and full transparency for our retail and HNI clients.
               </p>
             </div>
-            <div className="bg-background-midnight p-4 rounded-xl border border-elegant flex items-center justify-between">
+            <div className="bg-[#070707] p-4 rounded-xl border border-white/5 flex items-center justify-between shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.6)]">
               <div>
                 <p className="font-label-md text-label-md text-on-surface-variant mb-1 font-semibold text-xs uppercase">
                   SEBI Registration Status
@@ -134,11 +162,16 @@ export default function About() {
                 verified_user
               </span>
             </div>
-          </div>
+          </motion.div>
         </section>
 
         {/* CTA Banner */}
-        <section className="glass-panel rounded-2xl p-12 text-center relative overflow-hidden border border-elegant">
+        <motion.section 
+          whileHover={{ y: -2 }}
+          style={{ boxShadow: cardShadow }}
+          transition={springTransition}
+          className="bg-[#171717] rounded-2xl p-12 text-center relative overflow-hidden border-t border-white/20 border-x border-white/[0.02] border-b border-white/10"
+        >
           <div className="absolute inset-0 bg-gradient-to-r from-background-midnight via-primary/10 to-background-midnight z-0" />
           <div className="relative z-10 max-w-2xl mx-auto">
             <h2 className="font-headline-lg text-3xl font-bold mb-4 font-headline text-on-surface">
@@ -160,13 +193,13 @@ export default function About() {
                 href="/services"
                 whileTap={{ scale: 0.97 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                className="bg-transparent border border-premium-gold text-premium-gold font-label-md text-label-md px-8 py-3 rounded-full hover:bg-premium-gold/10 transition-all font-bold focus-ring cursor-pointer"
+                className="bg-[#070707] border border-white/10 text-premium-gold font-label-md text-label-md px-8 py-3 rounded-full hover:bg-white/5 transition-all font-bold focus-ring cursor-pointer shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.6)]"
               >
                 View Our Services
               </MotionLink>
             </div>
           </div>
-        </section>
+        </motion.section>
       </main>
     </div>
   );

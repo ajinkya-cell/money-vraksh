@@ -1,8 +1,11 @@
 "use client";
 
-import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function Disclosure() {
+  const cardShadow = "inset 0 1.5px 0 0 rgba(255, 255, 255, 0.08), inset 0 -1.5px 0 0 rgba(0, 0, 0, 0.4)";
+  const springTransition = { type: "spring" as const, stiffness: 200, damping: 18 };
+
   const sections = [
     {
       id: "history",
@@ -107,11 +110,16 @@ export default function Disclosure() {
 
       <main className="flex-grow px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full relative z-10 pb-20">
         {/* Warning Banner */}
-        <div className="glass-panel border-l-4 border-l-premium-gold rounded-xl p-6 mb-8 mt-6">
+        <motion.div 
+          style={{ boxShadow: cardShadow }}
+          className="bg-[#171717] border-t border-white/20 border-x border-white/[0.02] border-b border-white/10 border-l-4 border-l-premium-gold rounded-xl p-6 mb-8 mt-6"
+        >
           <div className="flex items-start gap-4">
-            <span className="material-symbols-outlined text-premium-gold text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>
-              warning
-            </span>
+            <div className="w-10 h-10 rounded-lg bg-[#070707] border border-white/5 shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.6)] flex items-center justify-center shrink-0">
+              <span className="material-symbols-outlined text-premium-gold text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>
+                warning
+              </span>
+            </div>
             <div>
               <h2 className="font-headline-md text-base font-bold text-premium-gold mb-2 font-headline uppercase tracking-wider">
                 Important Regulatory Notice
@@ -121,12 +129,15 @@ export default function Disclosure() {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
           {/* Sidebar Navigation */}
           <div className="lg:col-span-3 hidden lg:block">
-            <div className="sticky top-[120px] glass-panel rounded-2xl p-4 border border-elegant">
+            <div 
+              style={{ boxShadow: cardShadow }}
+              className="sticky top-[120px] bg-[#171717] rounded-2xl p-4 border-t border-white/20 border-x border-white/[0.02] border-b border-white/10"
+            >
               <nav className="flex flex-col space-y-2">
                 {sections.map((sec) => (
                   <button
@@ -137,7 +148,7 @@ export default function Disclosure() {
                         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
                       }
                     }}
-                    className="text-left w-full text-on-surface-variant hover:text-primary hover:bg-surface-container-high/30 px-4 py-3 border-l-2 border-transparent hover:border-primary rounded-r-lg font-label-md text-xs font-semibold uppercase tracking-wider transition-all duration-200 cursor-pointer focus-ring"
+                    className="text-left w-full text-on-surface-variant hover:text-primary hover:bg-white/5 px-4 py-3 border-l-2 border-transparent hover:border-primary rounded-r-lg font-label-md text-xs font-semibold uppercase tracking-wider transition-all duration-200 cursor-pointer focus-ring"
                   >
                     {sec.title}
                   </button>
@@ -153,19 +164,24 @@ export default function Disclosure() {
             </h1>
 
             {sections.map((sec) => (
-              <section
+              <motion.section
                 key={sec.id}
                 id={sec.id}
-                className="glass-panel rounded-2xl p-6 md:p-8 scroll-mt-28 border border-elegant hover:border-primary/20 transition-all duration-300"
+                whileHover={{ y: -2 }}
+                style={{ boxShadow: cardShadow }}
+                transition={springTransition}
+                className="bg-[#171717] rounded-2xl p-6 md:p-8 scroll-mt-28 border-t border-white/20 border-x border-white/[0.02] border-b border-white/10 relative overflow-visible"
               >
                 <h2 className="font-headline-lg text-xl md:text-2xl font-bold text-on-surface mb-6 flex items-center gap-3 font-headline">
-                  <span className="material-symbols-outlined text-primary">{sec.icon}</span>
+                  <div className="w-10 h-10 rounded-lg bg-[#070707] border border-white/5 shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.6)] flex items-center justify-center shrink-0">
+                    <span className="material-symbols-outlined text-primary">{sec.icon}</span>
+                  </div>
                   {sec.title}
                 </h2>
-                <div className="prose prose-invert max-w-none text-slate-text font-body-md text-body-md leading-relaxed">
+                <div className="prose prose-invert max-w-none text-slate-text font-body-md text-body-md leading-relaxed pl-1">
                   {sec.content}
                 </div>
-              </section>
+              </motion.section>
             ))}
           </div>
         </div>

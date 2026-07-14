@@ -1,7 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { SubService } from '../types';
+import { SubService, ACCENT_THEMES } from '../types';
 import RiskBadge from './RiskBadge';
 import PriceCard from './PriceCard';
 import KeyMetricsBar from './KeyMetricsBar';
@@ -16,14 +16,17 @@ interface ServiceDetailPageProps {
 
 export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
   const category = serviceCategories.find(c => c.id === service.category)!;
-  const isEquity = service.category === 'equity';
+  const theme = ACCENT_THEMES[category.accentColor] || ACCENT_THEMES.emerald;
 
-  const accentColor = isEquity ? 'emerald' : 'amber';
-  const primaryHex = isEquity ? '#10B981' : '#F59E0B';
-  const secondaryHex = isEquity ? '#059669' : '#EA580C';
-  const borderClass = isEquity ? 'border-emerald-500/20' : 'border-amber-500/20';
-  const textAccent = isEquity ? 'text-emerald-400' : 'text-amber-400';
-  const bgAccent = isEquity ? 'bg-emerald-500/8' : 'bg-amber-500/8';
+  const primaryHex = theme.primaryHex;
+  const secondaryHex = theme.secondaryHex;
+  const borderClass = theme.border;
+  const textAccent = theme.text;
+  const bgAccent = theme.bg;
+  const glowBgClass = theme.glow;
+
+  // Alternate background blur alignments
+  const isLeftGlow = ['equity-cash', 'index-futures', 'index-options'].includes(service.category);
 
   const metrics = [
     { icon: 'payments', label: 'Min Investment', value: service.minimumInvestment },
@@ -41,7 +44,7 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
         <div className="space-y-10">
           <div>
             <h3 className="font-headline-md text-base font-bold text-on-surface mb-4 font-headline flex items-center gap-2">
-              <span className={`w-1 h-4 rounded-full ${isEquity ? 'bg-emerald-500' : 'bg-amber-500'}`} />
+              <span className={`w-1 h-4 rounded-full ${glowBgClass}`} />
               What Is It For?
             </h3>
             <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed pl-4">
@@ -50,7 +53,7 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
           </div>
           <div>
             <h3 className="font-headline-md text-base font-bold text-on-surface mb-4 font-headline flex items-center gap-2">
-              <span className={`w-1 h-4 rounded-full ${isEquity ? 'bg-emerald-500' : 'bg-amber-500'}`} />
+              <span className={`w-1 h-4 rounded-full ${glowBgClass}`} />
               Who Is It For?
             </h3>
             <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed pl-4">
@@ -59,7 +62,7 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
           </div>
           <div>
             <h3 className="font-headline-md text-base font-bold text-on-surface mb-4 font-headline flex items-center gap-2">
-              <span className={`w-1 h-4 rounded-full ${isEquity ? 'bg-emerald-500' : 'bg-amber-500'}`} />
+              <span className={`w-1 h-4 rounded-full ${glowBgClass}`} />
               Ideal For
             </h3>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-2.5 pl-4">
@@ -88,7 +91,7 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       content: (
         <div>
           <h3 className="font-headline-md text-base font-bold text-on-surface mb-4 font-headline flex items-center gap-2">
-            <span className={`w-1 h-4 rounded-full ${isEquity ? 'bg-emerald-500' : 'bg-amber-500'}`} />
+            <span className={`w-1 h-4 rounded-full ${glowBgClass}`} />
             Product Description
           </h3>
           <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed pl-4">
@@ -105,7 +108,7 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
         <div className="space-y-6">
           <div>
             <h3 className="font-headline-md text-base font-bold text-on-surface mb-4 font-headline flex items-center gap-2">
-              <span className={`w-1 h-4 rounded-full ${isEquity ? 'bg-emerald-500' : 'bg-amber-500'}`} />
+              <span className={`w-1 h-4 rounded-full ${glowBgClass}`} />
               Risk Assessment
             </h3>
             <RiskBadge level={service.riskSustainability} variant="detailed" />
@@ -133,15 +136,15 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
     },
     {
       id: 'pricing',
-      label: 'Pricing',
+      label: 'Pricing & Plans',
       icon: 'currency_rupee',
       content: (
         <div className="space-y-6">
           <h3 className="font-headline-md text-base font-bold text-on-surface mb-1 font-headline flex items-center gap-2">
-            <span className={`w-1 h-4 rounded-full ${isEquity ? 'bg-emerald-500' : 'bg-amber-500'}`} />
+            <span className={`w-1 h-4 rounded-full ${glowBgClass}`} />
             Investment Plans
           </h3>
-          <PriceCard monthly={service.priceMonthly} quarterly={service.priceQuarterly} />
+          <PriceCard service={service} />
           <div className="rounded-xl border border-surface-container/50 bg-surface-container-low/30 p-5">
             <h4 className="font-headline-md text-sm font-bold text-on-surface mb-4 font-headline">
               What&apos;s Included
@@ -179,7 +182,7 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
   return (
     <div className="relative">
       <div className={`absolute inset-0 bg-gradient-to-b ${category.gradient} pointer-events-none`} />
-      <div className={`absolute top-[-200px] ${isEquity ? 'left-[-200px]' : 'right-[-200px]'} w-[500px] h-[500px] rounded-full opacity-[0.03] ${isEquity ? 'bg-emerald-500' : 'bg-amber-500'}`}
+      <div className={`absolute top-[-200px] ${isLeftGlow ? 'left-[-200px]' : 'right-[-200px]'} w-[500px] h-[500px] rounded-full opacity-[0.03] ${glowBgClass}`}
         style={{ filter: 'blur(120px)' }} />
 
       <div className="relative z-10 max-w-5xl mx-auto">
@@ -234,30 +237,31 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
           className="mb-10"
         >
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-            <div className="lg:col-span-3">
-              <PriceCard monthly={service.priceMonthly} quarterly={service.priceQuarterly} />
+            <div className="lg:col-span-5 border border-surface-container/50 bg-surface-container-low/10 rounded-2xl p-6">
+              <p className="font-label-md text-[10px] text-on-surface-variant/40 uppercase tracking-wider mb-4">Select Subscription Duration</p>
+              <PriceCard service={service} />
             </div>
-            <div className="lg:col-span-2 flex flex-col justify-center gap-3">
-              <MotionLink
-                href="/contact"
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-label-md text-sm font-bold text-white transition-all duration-300 focus-ring"
-                style={{ background: `linear-gradient(135deg, ${primaryHex}, ${secondaryHex})` }}
-              >
-                Subscribe Now
-                <span className="material-symbols-outlined text-base">arrow_forward</span>
-              </MotionLink>
-              <MotionLink
-                href="/contact"
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-label-md text-sm font-medium border border-surface-container/50 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all duration-300 focus-ring"
-              >
-                <span className="material-symbols-outlined text-base">call</span>
-                Schedule a Call
-              </MotionLink>
-            </div>
+          </div>
+          <div className="flex flex-col sm:flex-row justify-end gap-3 mt-6">
+            <MotionLink
+              href="/contact"
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              className="flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-label-md text-sm font-bold text-white transition-all duration-300 focus-ring"
+              style={{ background: `linear-gradient(135deg, ${primaryHex}, ${secondaryHex})` }}
+            >
+              Subscribe Now
+              <span className="material-symbols-outlined text-base">arrow_forward</span>
+            </MotionLink>
+            <MotionLink
+              href="/contact"
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              className="flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-label-md text-sm font-medium border border-surface-container/50 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all duration-300 focus-ring"
+            >
+              <span className="material-symbols-outlined text-base">call</span>
+              Schedule a Call
+            </MotionLink>
           </div>
         </motion.div>
 
@@ -297,7 +301,7 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
             Ready to Get Started with <span className={textAccent}>{service.name}</span>?
           </h2>
           <p className="font-body-lg text-body-lg text-on-surface-variant/70 max-w-xl mx-auto mb-8">
-            Join {category.name} traders who trust our research. Pick a plan that fits your goals.
+            Join thousands of traders who trust our research. Pick a plan that fits your goals.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <MotionLink
