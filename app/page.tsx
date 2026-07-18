@@ -48,7 +48,7 @@ export default function Home() {
             
             <h1 className="font-display-lg text-4xl md:text-6xl font-bold text-on-surface mb-6 leading-tight font-headline">
               Your Financial Future <br className="hidden md:block" />
-              <span className="gradient-text-primary italic">Starts Now</span>
+              <span className="gradient-text-primary">Starts Now</span>
             </h1>
             
             <p className="font-body-lg text-body-lg text-slate-text mb-10 max-w-2xl">
@@ -226,7 +226,7 @@ export default function Home() {
       >
         <div className="text-center mb-16">
           <h2 className="font-headline-lg text-3xl md:text-4xl font-bold text-on-surface mb-4 font-headline">
-            <span className="italic">Premium</span> Research Services
+            <span>Premium</span> Research Services
           </h2>
           <p className="font-body-lg text-body-lg text-slate-text max-w-2xl mx-auto">
             Tailored strategies for every market condition, designed to maximize your portfolio's potential.
@@ -316,7 +316,7 @@ export default function Home() {
             Our Process
           </span>
           <h2 className="font-headline-lg text-3xl md:text-4xl font-bold text-on-surface font-headline">
-            Get Our Service In <span className="italic font-normal">4 Steps</span>
+            Get Our Service In <span className="font-normal">4 Steps</span>
           </h2>
         </div>
 
@@ -475,7 +475,7 @@ export default function Home() {
               Why Choose Us
             </span>
             <h2 className="font-headline-lg text-3xl md:text-4xl font-bold text-on-surface mb-6 font-headline">
-              Our <span className="italic">Advantages</span>
+              Our <span>Advantages</span>
             </h2>
             <p className="font-body-md text-body-md text-slate-text mb-10 leading-relaxed">
               We help our clients to adhere to the money management as well as risk management principles, to make them accomplish their financial goals. Our analysts utilize the trend following strategies in a sophisticated manner to facilitate our clients grab the profits.
@@ -555,7 +555,7 @@ export default function Home() {
               Our Mission
             </span>
             <h2 className="font-headline-lg text-2xl md:text-3xl font-bold text-on-surface mb-4 leading-tight font-headline">
-              We Come To <span className="italic">Taking Care</span> Of Your Investment
+              We Come To <span>Taking Care</span> Of Your Investment
             </h2>
             <p className="font-body-md text-body-md text-slate-text leading-relaxed">
               Our research team is committed to providing premium market intelligence. Every signal is supported by meticulous technical and fundamental analysis, ensuring high accuracy. Our clients consistently achieve financial stability and wealth growth.

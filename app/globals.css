@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Sentient';
+  src: url('/Sentient-Bold.woff2') format('woff2'),
+       url('/Sentient-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* Default to Midnight theme values */
   --bg-midnight: #000000;
@@ -20,10 +29,10 @@
   --on-primary: #003824;
   --inverse-primary: #006c49;
   --error: #ffb4ab;
-  --font-display: 'Geist Pixel', sans-serif;
-  --font-headline: 'Geist Pixel', sans-serif;
-  --font-body: var(--font-outfit);
-  --font-mono: var(--font-space-grotesk);
+  --font-display: 'Sentient', var(--font-jakarta), sans-serif;
+  --font-headline: 'Sentient', var(--font-jakarta), sans-serif;
+  --font-body: var(--font-jakarta);
+  --font-mono: var(--font-jakarta);
 }
 
 /* Explicit Themes */
@@ -50,7 +59,7 @@
 
 .theme-truedark {
   --bg-midnight: #000000;
-  --bg-main: #070708;
+  --bg-main: #000000;
   --color-primary: #10B981;
   --color-primary-container: #064e3b;
   --color-success-emerald: #10B981;
@@ -132,7 +141,7 @@ html { scroll-behavior: smooth; }
 body {
   background-color: var(--bg-midnight);
   color: var(--on-surface);
-  font-family: var(--font-outfit);
+  font-family: var(--font-jakarta);
   transition: background-color 0.3s ease, color 0.3s ease;
   -webkit-font-smoothing: antialiased;
 }

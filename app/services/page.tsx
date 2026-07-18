@@ -21,7 +21,7 @@ export default function ServicesPage() {
           className="mb-16 text-center md:text-left"
         >
           <h1 className="font-headline text-4xl md:text-6xl font-bold text-on-surface mb-6 mt-6 leading-tight">
-            <span className="italic font-normal">Precision</span> Strategies for <br className="hidden md:block" />
+            <span className="font-normal">Precision</span> Strategies for <br className="hidden md:block" />
             <span className="gradient-text-primary">Every Market Condition</span>
           </h1>
           <p className="font-body-lg text-body-lg text-slate-text max-w-2xl mx-auto md:mx-0 mb-6 leading-relaxed">

@@ -19,7 +19,7 @@ export default function About() {
         {/* Header/Hero Section */}
         <section className="mb-24 text-center">
           <h1 className="font-display-lg text-4xl md:text-6xl font-bold mb-6 font-headline leading-tight">
-            Empowering Your Financial Future with <span className="gradient-text-primary italic">Precision</span>
+            Empowering Your Financial Future with <span className="gradient-text-primary">Precision</span>
           </h1>
           <p className="font-body-lg text-body-lg text-slate-text max-w-3xl mx-auto mb-10 leading-relaxed">
             We are a premier stock market research and advisory firm, dedicated to providing high-net-worth individuals and institutional investors with actionable, data-driven insights.
@@ -42,7 +42,7 @@ export default function About() {
                     history_edu
                   </span>
                 </div>
-                <h2 className="font-headline-lg text-2xl md:text-3xl font-bold font-headline">Our <span className="italic">Story</span></h2>
+                <h2 className="font-headline-lg text-2xl md:text-3xl font-bold font-headline">Our <span>Story</span></h2>
               </div>
               <p className="text-slate-text mb-4 leading-relaxed font-body-md">
                 Founded on the principle that superior market intelligence should be accessible to those who seek serious wealth generation, MoneyVraksh has grown from a specialized analytics desk into a trusted advisory powerhouse.
@@ -66,7 +66,7 @@ export default function About() {
                   diamond
                 </span>
               </div>
-              <h2 className="font-headline-md text-xl font-bold font-headline">Core <span className="italic">Values</span></h2>
+              <h2 className="font-headline-md text-xl font-bold font-headline">Core <span>Values</span></h2>
             </div>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
@@ -120,7 +120,7 @@ export default function About() {
                 />
               </div>
               <div>
-                <h2 className="font-headline-md text-lg font-bold font-headline">Message from <span className="italic">Leadership</span></h2>
+                <h2 className="font-headline-md text-lg font-bold font-headline">Message from <span>Leadership</span></h2>
                 <p className="font-label-md text-label-md text-premium-gold font-medium">Mr. Chetan Sharma, Founder &amp; CEO</p>
               </div>
             </div>
@@ -143,7 +143,7 @@ export default function About() {
                     gavel
                   </span>
                 </div>
-                <h2 className="font-headline-md text-xl font-bold font-headline text-on-surface">Regulatory <span className="italic">Compliance</span></h2>
+                <h2 className="font-headline-md text-xl font-bold font-headline text-on-surface">Regulatory <span>Compliance</span></h2>
               </div>
               <p className="text-slate-text mb-6 leading-relaxed font-body-md">
                 We operate strictly under the regulatory guidelines, ensuring maximum capital protection, risk mitigation, and full transparency for our retail and HNI clients.
@@ -175,7 +175,7 @@ export default function About() {
           <div className="absolute inset-0 bg-gradient-to-r from-background-midnight via-primary/10 to-background-midnight z-0" />
           <div className="relative z-10 max-w-2xl mx-auto">
             <h2 className="font-headline-lg text-3xl font-bold mb-4 font-headline text-on-surface">
-              Join Thousands of <span className="italic text-primary">Successful</span> Investors.
+              Join Thousands of <span className="text-primary">Successful</span> Investors.
             </h2>
             <p className="text-slate-text mb-8 leading-relaxed">
               Experience the difference of precision research and dedicated advisory.
